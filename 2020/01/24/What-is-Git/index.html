@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.ql-isaac.cn').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: true,
+    comments: {"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+
+  <meta name="description" content="Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git是林纳斯·托瓦兹为了帮助管理Linux内核开发而开发的一个开放源码的分布式版本控制软件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是Git？">
+<meta property="og:url" content="http://blog.ql-isaac.cn/2020/01/24/What-is-Git/index.html">
+<meta property="og:site_name" content="ql&#39;s HexoBlog">
+<meta property="og:description" content="Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git是林纳斯·托瓦兹为了帮助管理Linux内核开发而开发的一个开放源码的分布式版本控制软件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E8%AE%BE%E7%BD%AE%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E7%BB%84%E4%BB%B6.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E5%BC%80%E5%A7%8B%E8%8F%9C%E5%8D%95%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E8%AE%BE%E7%BD%AEGit%E7%9A%84%E9%BB%98%E8%AE%A4%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E8%B0%83%E6%95%B4Path%E7%8E%AF%E5%A2%83.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E9%80%89%E6%8B%A9HTTPS%E5%90%8E%E7%AB%AF%E4%BC%A0%E8%BE%93.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E9%85%8D%E7%BD%AE%E8%A1%8C%E5%B0%BE%E7%AC%A6%E5%8F%B7%E8%BD%AC%E6%8D%A2.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E9%85%8D%E7%BD%AE%E7%BB%88%E7%AB%AF%E6%A8%A1%E6%8B%9F%E5%99%A8%E4%BB%A5%E4%B8%8EGit_Bash%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E9%85%8D%E7%BD%AE%E9%A2%9D%E5%A4%96%E7%9A%84%E9%80%89%E9%A1%B9.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/ReleaseNotes.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E6%B3%A8%E5%86%8C.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E6%A1%8C%E9%9D%A2%E5%8F%B3%E9%94%AE.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/SSH.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E6%9B%B4%E6%96%B0.png">
+<meta property="og:image" content="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85Git.gif">
+<meta property="article:published_time" content="2020-01-24T22:53:47.000Z">
+<meta property="article:modified_time" content="2020-01-24T22:53:47.000Z">
+<meta property="article:author" content="ql-isaac">
+<meta property="article:tag" content="Ubuntu 18.04 LTS">
+<meta property="article:tag" content="Windows 10 企业版 LTSC">
+<meta property="article:tag" content="Git v2.25.0.windows.1">
+<meta property="article:tag" content="Git v2.17.1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F.png">
+
+<link rel="canonical" href="http://blog.ql-isaac.cn/2020/01/24/What-is-Git/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>什么是Git？ | ql's HexoBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ql's HexoBlog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books" rel="section"><i class="fa fa-fw fa-book"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies" rel="section"><i class="fa fa-fw fa-video-camera"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-games">
+
+    <a href="/games" rel="section"><i class="fa fa-fw fa-gamepad"></i>游戏</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/ql-isaac/HexoBlog/tree/main/NexT" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.ql-isaac.cn/2020/01/24/What-is-Git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E4%BD%9C%E8%80%85%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="ql-isaac">
+      <meta itemprop="description" content="学习与生活">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's HexoBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是Git？<a href="https://github.com/ql-isaac/HexoBlog/edit/main/_posts/What-is-Git.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-24 22:53:47" itemprop="dateCreated datePublished" datetime="2020-01-24T22:53:47+00:00">2020-01-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git%E5%92%8CGitHub%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index">
+                    <span itemprop="name">Git和GitHub从入门到实践</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/24/What-is-Git/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/24/What-is-Git/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>　　Git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。Git是<a href="https://www.baidu.com/s?wd=林纳斯·托瓦兹&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">林纳斯·托瓦兹</a>为了帮助管理Linux内核开发而开发的一个开放源码的分布式版本控制软件。</p>
+<a id="more"></a>
+
+<h2 id="分布式版本控制系统"><a href="#分布式版本控制系统" class="headerlink" title="分布式版本控制系统"></a>分布式版本控制系统</h2><p>　　了解什么是分布式版本控制系统，我想是我们初学Git最好的开始。在<a href="https://zh.wikipedia.org/wiki/程式設計" target="_blank" rel="noopener">程序设计</a>中，分布式版本控制（英语：distributed revision control 或 distributed version control），又称去中心化版本控制（decentralized version control），是一种<a href="https://zh.wikipedia.org/wiki/版本控制" target="_blank" rel="noopener">版本控制</a>的方式，它允许<a href="https://zh.wikipedia.org/wiki/軟體開發者" target="_blank" rel="noopener">软件开发者</a>可以共同参与一个软件开发项目，但是不必在相同的网络系统下工作，在每个开发者电脑中复制一份完整的<a href="https://zh.wikipedia.org/wiki/代码库" target="_blank" rel="noopener">代码库</a>以及完整历史，在无法连接网络时，仍可以进行软件的<a href="https://zh.wikipedia.org/wiki/分支_(版本控制)" target="_blank" rel="noopener">分支</a>及<a href="https://zh.wikipedia.org/wiki/合并_(版本控制)" target="_blank" rel="noopener">合并</a>。</p>
+<h2 id="Git的诞生"><a href="#Git的诞生" class="headerlink" title="Git的诞生"></a>Git的诞生</h2><p>　　在2002年以前，世界各地的志愿者还是以一种传统的方式将源代码文件发给林纳斯·托瓦兹，然后由他本人通过手工方式合并代码。当时虽然有CSV、SVN这些免费的版本控制系统，但是速度慢、需要联网，也有一些商用的版本控制系统，虽然比CSV、SVN好用，但是不开源，和Linux的开源精神不符。2002年，Linux系统已经发展了十年，代码库之大让<a href="https://www.baidu.com/s?wd=林纳斯·托瓦兹&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">林纳斯·托瓦兹</a>很难继续通过手工方式管理，最终<a href="https://www.baidu.com/s?wd=林纳斯·托瓦兹&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">林纳斯·托瓦兹</a>选择了一个商业的版本控制系统BitKeeper，BitKeeper的东家BitMover公司出于人道主义精神，授权Linux社区免费使用这个版本控制系统，这看起来是一个很好的局面。Linux社区牛人聚集，2005年，开发Samba的Andrew试图破解BitKeeper的协议的行为被 BitMover公司发现，Linux社区的BitKeeper免费使用权被收回，于是，<a href="https://www.baidu.com/s?wd=林纳斯·托瓦兹&tn=SE_PcZhidaonwhc_ngpagmjz&rsv_dl=gh_pc_zhidao" target="_blank" rel="noopener">林纳斯·托瓦兹</a>花了两周时间自己用C写了一个分布式版本控制系统，Git诞生！之后，Git迅速成为最流行的分布式版本控制系统，随即，2008年，GitHub网站上线，它为开源项目免费提供Git存储，无数开源项目开始迁移至GitHub，包括jQuery、PHP、Ruby等等。</p>
+<h2 id="Git真的很重要"><a href="#Git真的很重要" class="headerlink" title="Git真的很重要"></a>Git真的很重要</h2><p>　　代码改变世界。每一门编程语言的第一个程序都是在屏幕上打印出“Hello,World!”，这就好像该门编程语言也是拥有生命力般，满怀自信地说着你好，世界！他相信自己能给世界带来更多的可能，而这一切的一切的幕后，是程序员和版本控制系统，Git就是最流行的版本控制系统，没有之一。</p>
+<h2 id="安装和配置Git"><a href="#安装和配置Git" class="headerlink" title="安装和配置Git"></a>安装和配置Git</h2><p>　　我在《我的HexoBlog的诞生（一）》中已经完成了Git的安装和配置，不过那只是在Windows上，而且也没详细讲，这里就详细讲解一下如何在Windows和Linux上安装和配置Git吧。</p>
+<h3 id="Windows-10上安装和配置Git"><a href="#Windows-10上安装和配置Git" class="headerlink" title="Windows 10上安装和配置Git"></a>Windows 10上安装和配置Git</h3><ol>
+<li><p>以v2.25.0版Git为例，点击安装程序；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F.png" alt="安装程序"></p>
+</li>
+<li><p>GNU许可证：不看，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE.png" alt="许可协议"></p>
+</li>
+<li><p>设置安装路径：建议将C改为D，安装在D盘，这里就不改了，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E8%AE%BE%E7%BD%AE%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84.png" alt="设置安装路径"></p>
+</li>
+<li><p>安装组件：第一个选项是说是否创建桌面快捷方式，可以不勾选，下面六个都勾选了，为默认，不更改，倒数第一个是说是否检查更新，可以不勾选，倒数第二个是说是否在所有控制台窗口中使用TrueType字体，勾选，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E7%BB%84%E4%BB%B6.png" alt="安装组件"></p>
+</li>
+<li><p>开始菜单设置：直接Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E5%BC%80%E5%A7%8B%E8%8F%9C%E5%8D%95%E8%AE%BE%E7%BD%AE.png" alt="开始菜单设置"></p>
+</li>
+<li><p>设置Git的默认文本编辑器：就选择Vim，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E8%AE%BE%E7%BD%AEGit%E7%9A%84%E9%BB%98%E8%AE%A4%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8.png" alt="设置Git的默认文本编辑器"></p>
+</li>
+<li><p>调整PATH环境：就选择默认推荐的，Next。该推荐项是说仅向PATH添加一些最小的Git包装器，以避免使用可选的Unix工具造成环境混乱，能够通过Git Bash、命令提示符、Windows PowerShell以及在PATH中寻找Git的任何第三方软件使用Git。</p>
+<p><img data-src="https://image.ql-isaac.cn/%E8%B0%83%E6%95%B4Path%E7%8E%AF%E5%A2%83.png" alt="调整Path环境"></p>
+</li>
+<li><p>选择HTTPS后端传输：第一个选项是说使用OpenSSL库，服务器证书将使用ca-bundle.crt文件进行验证，这是我们常用的选项。第二个选项是说使用本地Windows安全通道库，服务器证书将使用Windows证书存储验证，此选项还允许使用公司的内部根CA证书，例如通过Active Directory Domain Services。这里，就默认第一个选项，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E9%80%89%E6%8B%A9HTTPS%E5%90%8E%E7%AB%AF%E4%BC%A0%E8%BE%93.png" alt="选择HTTPS后端传输"></p>
+</li>
+<li><p>配置行尾符号转换：第一个选项是说签出Windows风格，提交Unix风格的行尾，签出文本文件时，Git会将LF转换为CRLF，提交文本文件时，CRLF将转换为LF，对于跨平台项目，这是Windows上的推荐设置（“core.autocrlf”设置为“true”）。第二个选项是说按原样签出，提交Unix样式的行尾，签出文本文件时，Git不会执行任何转换，提交文本文件时，CRLF将转换为LF，对于跨平台项目，这是Unix上的建议设置（“core.autocrlf”设置为“input”）。第三个选项是说按原样签出，按原样提交，当签出或提交文本文件时，Git不会执行任何转换，不建议跨平台项目选择此选项（“core.autocrlf”设置为“false”）。这里，就默认第一个选项，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E9%85%8D%E7%BD%AE%E8%A1%8C%E5%B0%BE%E7%AC%A6%E5%8F%B7%E8%BD%AC%E6%8D%A2.png" alt="配置行尾符号转换"></p>
+</li>
+<li><p>配置终端模拟器以与Git Bash一起使用：第一个选项是说使用MinTTY（MSYS2的默认终端），Git Bash将使用MinTTY作为终端模拟器，该模拟器具有可调整大小的窗口，非矩形选择和Unicode字体，Windows控制台程序（例如交互式Python）必须通过“ winpty”启动才能在MinTTY中运行。第二个选项是说使用Windows的默认控制台窗口，Git将使用Windows的默认控制台窗口（“cmd.exe”），该窗口可以与Win32控制台程序（如交互式Python或node.js）一起使用，但默认的回滚非常有限，需要配置为使用 unicode字体以正确显示非ASCII字符，并且在Windows 10之前，其窗口不能自由调整大小，并且只允许矩形文本选择。这里，就默认第一个选项，Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E9%85%8D%E7%BD%AE%E7%BB%88%E7%AB%AF%E6%A8%A1%E6%8B%9F%E5%99%A8%E4%BB%A5%E4%B8%8EGit_Bash%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8.png" alt="配置终端模拟器以与Git_Bash一起使用"></p>
+</li>
+<li><p>配置额外的选项：第一个选项是说启用文件系统缓存，文件系统数据将被批量读取并缓存在内存中用于某些操作（“core.fscache”设置为“true”）， 这可以显着地提升性能。第二个选项是说启用Git凭证管理器，Windows的Git凭证管理器为Windows提供安全的Git凭证存储，最显著的是对Visual Studio Team Services和GitHub的多因素身份验证支持（需要.NET Framework v4.5.1或更高版本）。第三个选项是说启用符号链接，启用符号链接需要SeCreateSymbolicLink权限，现有存储库不受此设置的影响。这里，就默认第一个和第二个选项，Install；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E9%85%8D%E7%BD%AE%E9%A2%9D%E5%A4%96%E7%9A%84%E9%80%89%E9%A1%B9.png" alt="配置额外的选项"></p>
+</li>
+<li><p>安装完成：Next；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.png" alt="安装完成"></p>
+</li>
+<li><p>Release Notes；</p>
+<p><img data-src="https://image.ql-isaac.cn/ReleaseNotes.png" alt="ReleaseNotes"></p>
+</li>
+<li><p>至此Git就算安装完毕了，之后需要去<a href="https://github.com/" target="_blank" rel="noopener">Github</a>注册一个自己的账号，注意需要绑定自己的邮箱；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E6%B3%A8%E5%86%8C.png" alt="注册"></p>
+</li>
+<li><p>在桌面右键，点击Git Bash Here；</p>
+<p><img data-src="https://image.ql-isaac.cn/%E6%A1%8C%E9%9D%A2%E5%8F%B3%E9%94%AE.png" alt="桌面右键"></p>
+</li>
+<li><p>全局用户信息配置：分别输入以下两个命令回车执行，无提示表示命令执行成功，可以用<code>git config --list</code>来查看配置好的信息；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"&lt;自己的Github用户名&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">"&lt;自己的Github邮箱&gt;"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成SSH秘钥：输入以下命令回车执行，然后连敲三次回车键，此时打开.ssh 文件夹，其位于你的Windows用户文件夹下，如下图，用文本编辑器打开id_rsa.pub，Ctrl+A复制里面全部的内容；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://image.ql-isaac.cn/SSH.png" alt="SSH"></p>
+</li>
+<li><p>Github的SSH公钥配置：登录自己的Github账号，点击右上角的头像，点击Setting，点击左侧的SSH and GPG keys，点击右侧的New SSH key，填写Tile，填写Key，右键粘贴，粘贴刚复制的内容，最后点击Add SSH key；</p>
+</li>
+<li><p>测试一下，输入以下命令回车执行，输入yes，再回车，有如下提示，表示本机和自己的GitHub绑定成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi &lt;自己的Github用户名&gt;! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="Ubuntu-18-04-LTS上安装和配置Git"><a href="#Ubuntu-18-04-LTS上安装和配置Git" class="headerlink" title="Ubuntu 18.04 LTS上安装和配置Git"></a>Ubuntu 18.04 LTS上安装和配置Git</h3><ol>
+<li><p>相比在Windows上，在Linux上安装和配置Git的步骤就比较少了。在终端输入以下命令回车执行，确保您的系统和apt包列表完全更新；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update -y</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://image.ql-isaac.cn/%E6%9B%B4%E6%96%B0.png" alt="更新"></p>
+</li>
+<li><p>在终端输入以下命令回车执行，安装Git，可输入以下命令查看Git版本；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://image.ql-isaac.cn/%E5%AE%89%E8%A3%85Git.gif" alt="安装Git"></p>
+</li>
+<li><p>全局用户信息配置：分别输入以下两个命令回车执行，无提示表示命令执行成功，可以用<code>git config --list</code>来查看配置好的信息；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"&lt;自己的Github用户名&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">"&lt;自己的Github邮箱&gt;"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成SSH秘钥：输入以下命令回车执行，然后连敲三次回车键；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输入以下命令回车，输入用户密码安装Vim文本编辑器；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行以下命令，用Vim打开公钥文件，复制其中的内容（不要复制多了，也不要复制少了；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/&lt;自己的用户名&gt;/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登录自己的Github账号，点击右上角的头像，点击Setting，点击左侧的SSH and GPG keys，点击右侧的New SSH key，填写Tile，也可以不填，填写Key，右键粘贴，粘贴刚复制的内容，最后点击Add SSH key；</p>
+</li>
+<li><p>测试一下，输入以下命令回车执行，有如下提示，表示本机和自己的GitHub绑定成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi &lt;自己的GitHub用户名&gt;! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Git的基本使用"><a href="#Git的基本使用" class="headerlink" title="Git的基本使用"></a>Git的基本使用</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Ubuntu-18-04-LTS/" rel="tag"><i class="fa fa-tag"></i> Ubuntu 18.04 LTS</a>
+              <a href="/tags/Windows-10-%E4%BC%81%E4%B8%9A%E7%89%88-LTSC/" rel="tag"><i class="fa fa-tag"></i> Windows 10 企业版 LTSC</a>
+              <a href="/tags/Git-v2-25-0-windows-1/" rel="tag"><i class="fa fa-tag"></i> Git v2.25.0.windows.1</a>
+              <a href="/tags/Git-v2-17-1/" rel="tag"><i class="fa fa-tag"></i> Git v2.17.1</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/24/My-HexoBlog-with-NexT(3)/" rel="prev" title="我的HexoBlog的诞生（三）">
+      <i class="fa fa-chevron-left"></i> 我的HexoBlog的诞生（三）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/27/Python-Learning(1)/" rel="next" title="Python从入门到实践（一）">
+      Python从入门到实践（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式版本控制系统"><span class="nav-number">1.</span> <span class="nav-text">分布式版本控制系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的诞生"><span class="nav-number">2.</span> <span class="nav-text">Git的诞生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git真的很重要"><span class="nav-number">3.</span> <span class="nav-text">Git真的很重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置Git"><span class="nav-number">4.</span> <span class="nav-text">安装和配置Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-10上安装和配置Git"><span class="nav-number">4.1.</span> <span class="nav-text">Windows 10上安装和配置Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu-18-04-LTS上安装和配置Git"><span class="nav-number">4.2.</span> <span class="nav-text">Ubuntu 18.04 LTS上安装和配置Git</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的基本使用"><span class="nav-number">5.</span> <span class="nav-text">Git的基本使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql-isaac"
+      src="/images/%E4%BD%9C%E8%80%85%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">ql-isaac</p>
+  <div class="site-description" itemprop="description">学习与生活</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://blog.ql-isaac.cn/" title="blog → https:&#x2F;&#x2F;blog.ql-isaac.cn&#x2F;"><i class="fa fa-fw fa-sticky-note"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://ql-isaac.cn/" title="www → https:&#x2F;&#x2F;ql-isaac.cn&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-quora"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.ql-isaac.cn/" title="nav → https:&#x2F;&#x2F;nav.ql-isaac.cn&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-location-arrow"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.ql-isaac.cn/" title="space → https:&#x2F;&#x2F;space.ql-isaac.cn&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-codepen"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/834471527@qq.com" title="mail → 834471527@qq.com"><i class="fa fa-fw fa-envelope"></i>mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="ql-isaac → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>ql-isaac</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lixint.github.io/" title="https:&#x2F;&#x2F;lixint.github.io&#x2F;" rel="noopener" target="_blank">LixT</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://www.dragonbaby308.com/" title="http:&#x2F;&#x2F;www.dragonbaby308.com&#x2F;" rel="noopener" target="_blank">DragonBaby308</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yubuntu0109.github.io/" title="https:&#x2F;&#x2F;yubuntu0109.github.io&#x2F;" rel="noopener" target="_blank">YUbuntu0109</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql-isaac</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'dBCVczg7JFbkiJpRUXwpUBBC-gzGzoHsz',
+      appKey: 'PMRo3y14A7DDJjiVNLSwn02q',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: 'zh-cn' || 'zh-cn',
+      path: location.pathname,
+      recordIP: true,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
