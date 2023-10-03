@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="工作的机会，接触到 Atlassian 公司旗下的多款软件产品，虽然不是开源的，虽然不是免费的，但是好用啊，无论是对个人还是企业来说。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立个人云服务（二）">
+<meta property="og:url" content="http://blog.imql.life/2021/10/03/Building_Personal_Cloud_Services_2/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="工作的机会，接触到 Atlassian 公司旗下的多款软件产品，虽然不是开源的，虽然不是免费的，但是好用啊，无论是对个人还是企业来说。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/65f8f94574f6fd2f3688aa1e47b7b836.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7792f9b2c82db4e01567949a48983505.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/0c27dabc33ed2177879d05053b27f6b6.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7e74763a9a501ba7d4a4a1c4786bdcdf.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/f4a232930b3cae52e1b0c8f8a2833a13.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/d8531eece3cf36ada075b344f91a6f24.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/e1108b3336a9b2c9f56e4c009db37b1d.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/5cc8eec7cb7f6a1f9ada3e041418edab.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/133c55674d4f32b2768c1429ecb75dbf.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7a2c81761f087ce0523ea43e895da22d.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/28607436351f6cce43ffe29dfead1d08.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/0f855596601f710d2aeedbc560e6e36b.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/da064fd03bb21779e6dd0f6df9b6364e.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/87276e62216bd8b1bf295476c2594f52.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/8d0f8a7fd4ea6587215386e8e189ff14.png">
+<meta property="article:published_time" content="2021-10-03T11:48:18.000Z">
+<meta property="article:modified_time" content="2021-10-06T12:44:00.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="JDK">
+<meta property="article:tag" content="Jira Software">
+<meta property="article:tag" content="Confluence">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="MySQL Connector&#x2F;J">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/65f8f94574f6fd2f3688aa1e47b7b836.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2021/10/03/Building_Personal_Cloud_Services_2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2021/10/03/Building_Personal_Cloud_Services_2/","path":"2021/10/03/Building_Personal_Cloud_Services_2/","title":"建立个人云服务（二）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>建立个人云服务（二） | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-Jira-Software"><span class="nav-number">1.</span> <span class="nav-text">下载 Jira Software</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-Confluence"><span class="nav-number">2.</span> <span class="nav-text">下载 Confluence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-Jdk8"><span class="nav-number">3.</span> <span class="nav-text">下载安装 Jdk8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE-MySQL5-7"><span class="nav-number">4.</span> <span class="nav-text">下载安装配置 MySQL5.7[1]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-MySQL-JDBC-Drive"><span class="nav-number">5.</span> <span class="nav-text">下载 MySQL JDBC Drive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Jira-Software"><span class="nav-number">6.</span> <span class="nav-text">安装 Jira Software[4]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">6.1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Candy-%E4%BB%A3%E7%90%86-Jira-Software"><span class="nav-number">6.2.</span> <span class="nav-text">使用 Candy 代理 Jira Software</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-Jira-Software"><span class="nav-number">6.3.</span> <span class="nav-text">设置 Jira Software</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2021/10/03/Building_Personal_Cloud_Services_2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          建立个人云服务（二）<a href="https://github.dev/ql-isaac/#_posts/%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%EF%BC%88%E4%BA%8C%EF%BC%89.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-03 19:48:18" itemprop="dateCreated datePublished" datetime="2021-10-03T19:48:18+08:00">2021-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-10-06 20:44:00" itemprop="dateModified" datetime="2021-10-06T20:44:00+08:00">2021-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E4%BA%91%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">建立个人云服务</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>工作的机会，接触到 <a target="_blank" rel="noopener" href="https://www.atlassian.com/">Atlassian 公司</a>旗下的多款软件产品，虽然不是开源的，虽然不是免费的，但是好用啊，无论是对个人还是企业来说。</p>
+<span id="more"></span>
+<h2 id="下载-Jira-Software">下载 Jira Software</h2>
+<p>Jira Software 是 <a target="_blank" rel="noopener" href="https://www.atlassian.com/">Atlassian 公司</a> 出品的问题管理与协同工具，被广泛应用于缺陷跟踪、客户服务、需求收集、流程审批、任务跟踪、项目跟踪和敏捷管理等工作领域。</p>
+<p>Jira Software 有两种部署方式：云平台和自建。云平台方式就是 Atlassian 官方提供全套云服务，你只需要注册账号通过浏览器使用即可，但是这种方式在国内体验并不好，出于个人自学的目的，我选择自建方式。</p>
+<p>在<a target="_blank" rel="noopener" href="https://www.atlassian.com/software/jira/download-archives">官方下载页面</a>，选择下载最新的长期支持版：</p>
+<p><img data-src="https://img.imql.life/illustrations/65f8f94574f6fd2f3688aa1e47b7b836.png" alt="长期支持版.png"></p>
+<p>这里选择 TAR.GZ 格式的，如下图，这种格式需要进行手动安装，下载完成后使用 SFTP 上传到无忧实例家目录下的 Atlassian 下。</p>
+<p><img data-src="https://img.imql.life/illustrations/7792f9b2c82db4e01567949a48983505.png" alt="tar.gz.png"></p>
+<p>这里有安装手册，如下图，官方的文档写得非常好，只是需要一点英文基础。</p>
+<p><img data-src="https://img.imql.life/illustrations/0c27dabc33ed2177879d05053b27f6b6.png" alt="安装手册.png"></p>
+<h2 id="下载-Confluence">下载 Confluence</h2>
+<p>Confluence 是 <a target="_blank" rel="noopener" href="https://www.atlassian.com/">Atlassian 公司</a> 出品的知识管理与协同软件，可以用于构建企业 wiki。</p>
+<p>Confluence 同样有两种部署方式：云平台和自建，我们还是选择自建。</p>
+<p>在<a target="_blank" rel="noopener" href="https://www.atlassian.com/software/confluence/download-archives">官方下载页面</a>，也是选择下载 TAR.GZ 格式的最新长期支持版，然后上传到无忧实例家目录下的 Atlassian 下。</p>
+<p><img data-src="https://img.imql.life/illustrations/7e74763a9a501ba7d4a4a1c4786bdcdf.png" alt="confluence.png"></p>
+<h2 id="下载安装-Jdk8">下载安装 Jdk8</h2>
+<p>前往<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/#java8">官方下载地址</a>，也是下载 TAR.GZ 格式的，如下图，这里需要登录才能下载，没有账号就注册一下。</p>
+<p><img data-src="https://img.imql.life/illustrations/f4a232930b3cae52e1b0c8f8a2833a13.png" alt="jdk8.png"></p>
+<p>下载完成后，使用 root 用户登录无忧实例，如果确认密码是正确的还是登不上，那可能是 SSH 没开启 root 远程登录，百度一下即可。登录上之后创建目录，如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /usr/lib/jdk</span><br></pre></td></tr></table></figure>
+<p>上传刚刚下好的 Jdk 到以上创建目录下，再解压到此目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-8u301-linux-x64.tar.gz -C /usr/lib/jdk</span><br></pre></td></tr></table></figure>
+<p>再换成 ubuntu 用户登录，这是平常使用的用户，编辑 .bashrc。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>在文件的末尾，空一格，追加下面内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#Set Oracle Jdk environment</span><br><span class="line">export JAVA_HOME=/usr/lib/jdk/jdk1.8.0_301</span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib</span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>使环境变量马上生效:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>执行如下命令，输出版本信息，表明 Jdk 安装成功。</p>
+<p><img data-src="https://img.imql.life/illustrations/d8531eece3cf36ada075b344f91a6f24.png" alt="安装成功.png"></p>
+<h2 id="下载安装配置-MySQL5-7">下载安装配置 MySQL5.7<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h2>
+<p>分别执行以下命令下载 MySQL APT 并安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.mysql.com/mysql-apt-config_0.8.19-1_all.deb</span><br><span class="line">sudo dpkg -i mysql-apt-config_0.8.19-1_all.deb</span><br></pre></td></tr></table></figure>
+<p>选择第一个回车，之后可以选择版本，也是选择第一个 mysql-5.7，回车，回到了上一级，移动到最底下，即选择 Ok，回车：</p>
+<p><img data-src="https://img.imql.life/illustrations/e1108b3336a9b2c9f56e4c009db37b1d.png" alt="回车.png"></p>
+<p>使用以下命令更新 MySQL APT 存储库中的包信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>执行以下命令安装 MySQL，安装过程中会要求输入 root 数据库用户的密码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server</span><br></pre></td></tr></table></figure>
+<p>安装完成后，服务是已经启动的，可执行以下命令查看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status mysql</span><br></pre></td></tr></table></figure>
+<p>编辑 my.cnf：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/mysql/my.cnf</span><br></pre></td></tr></table></figure>
+<p>空一行，追加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">character-set-server=utf8mb4</span><br><span class="line">collation-server=utf8mb4_bin</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line">max_allowed_packet=256M</span><br><span class="line">transaction-isolation=READ-COMMITTED</span><br><span class="line">binlog_format=row</span><br><span class="line">log-bin-trust-function-creators = 1</span><br><span class="line">optimizer_switch = derived_merge=off</span><br><span class="line">innodb_default_row_format=DYNAMIC</span><br><span class="line">innodb_large_prefix=ON</span><br><span class="line">innodb_file_format=Barracuda</span><br><span class="line">innodb_log_file_size=2G</span><br></pre></td></tr></table></figure>
+<p>重启 MySQL：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql stop</span><br><span class="line">sudo service mysql start</span><br></pre></td></tr></table></figure>
+<p>以 root（不是操作系统的 root）登入 MySQL，密码就是上面设定的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<p>这里可以看到 MySQL 的具体版本：</p>
+<p><img data-src="https://img.imql.life/illustrations/5cc8eec7cb7f6a1f9ada3e041418edab.png" alt="具体版本.png"></p>
+<p>分别执行以下 SQL，创建数据库用户 jira 和 confluence，数据库 jiradb 和 confluencedb。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> jira IDENTIFIED <span class="keyword">by</span> <span class="string">&#x27;&lt;jira的密码&gt;&#x27;</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> confluence IDENTIFIED <span class="keyword">by</span> <span class="string">&#x27;&lt;confluence的密码&gt;&#x27;</span>;</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE jiradb <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin;</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE confluence <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_bin;</span><br></pre></td></tr></table></figure>
+<p>分别执行以下 SQL，授予数据库用户 jira 和 confluence 相应权限。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span>,<span class="keyword">INSERT</span>,<span class="keyword">UPDATE</span>,<span class="keyword">DELETE</span>,<span class="keyword">CREATE</span>,<span class="keyword">DROP</span>,<span class="keyword">REFERENCES</span>,<span class="keyword">ALTER</span>,INDEX <span class="keyword">on</span> jiradb.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;jira&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;&lt;自己设定的jira的密码&gt;&#x27;</span>;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> confluencedb.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;confluence&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;&lt;自己设定的confluence的密码&gt;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>最后使权限生效：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>退出 MySQL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h2 id="下载-MySQL-JDBC-Drive">下载 MySQL JDBC Drive</h2>
+<p>了解到要想使用 confluence，官方推荐的 JDBC driver 是 5.1 版本的<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，于是前往 <a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/c-j/">MySQL 官方地址下载该版本的 JDBC driver</a>，如下图，注意选择 Platform Independent，即与平台无关。</p>
+<p><img data-src="https://img.imql.life/illustrations/133c55674d4f32b2768c1429ecb75dbf.png" alt="Platform-Independent.png"></p>
+<p>下载完成后直接解压到当前文件夹，我们只需要里面的 jar 文件，如下图，先将其上传到无忧实例家目录下的 Atlassian 下。</p>
+<p><img data-src="https://img.imql.life/illustrations/7a2c81761f087ce0523ea43e895da22d.png" alt="jar.png"></p>
+<p>Jira 也可以使用 5.1 版本的 JDBC driver<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>，那就不用再下了。</p>
+<h2 id="安装-Jira-Software">安装 Jira Software<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></h2>
+<h3 id="准备">准备</h3>
+<ol>
+<li>创建安装目录：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/Atlassian/jirasoftware</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>解压压缩包到安装目录：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf ~/Atlassian/atlassian-jira-software-8.13.11.tar.gz -C ~/Atlassian/jirasoftware</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>复制下载好的 MySQL JDBC Drive 到相应目录：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> ~/Atlassian/mysql-connector-java-5.1.49.jar ~/Atlassian/jirasoftware/atlassian-jira-software-8.13.11-standalone/lib</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>创建 Jira Software 的家目录，这是应用产生的数据的存放之处：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/Atlassian/jirasoftware/jirasoftware-home</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>创建了家目录，就要告诉 Jira Software 家目录在哪儿，同样是编辑 .bashrc，在文件的末尾空一格，追加下面内容：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JIRA_HOME=~/Atlassian/jirasoftware/jirasoftware-home</span><br></pre></td></tr></table></figure>
+<h3 id="使用-Candy-代理-Jira-Software">使用 Candy 代理 Jira Software</h3>
+<p>注释掉无代理连接器：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#本行为~/Atlassian/jirasoftware/atlassian-jira-software-8.13.11-standalone/conf/server.xml的第17行（随着Jira Software的不断更新，本行对应在你的server.yml中不一定是第17行，请以实际情况为准）</span><br><span class="line">&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.startup.VersionLoggerListener&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.core.AprLifecycleListener&quot; SSLEngine=&quot;on&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.core.JreMemoryLeakPreventionListener&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.mbeans.GlobalResourcesLifecycleListener&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.core.ThreadLocalLeakPreventionListener&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Service name=&quot;Catalina&quot;&gt;</span><br><span class="line">        &lt;!--</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">         DEFAULT - Direct connector with no proxy for unproxied access to Jira.</span><br><span class="line"></span><br><span class="line">         If using a http/https proxy, comment out this connector.</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">        --&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Relaxing chars because of JRASERVER-67974 --&gt;</span><br><span class="line"><span class="deletion">-        &lt;Connector port=&quot;8080&quot; relaxedPathChars=&quot;[]|&quot; relaxedQueryChars=&quot;[]|&#123;&#125;^\`&quot;&lt;&gt;&quot;</span></span><br><span class="line"><span class="deletion">-                   maxThreads=&quot;150&quot; minSpareThreads=&quot;25&quot; connectionTimeout=&quot;20000&quot; enableLookups=&quot;false&quot;</span></span><br><span class="line"><span class="deletion">-                   maxHttpHeaderSize=&quot;8192&quot; protocol=&quot;HTTP/1.1&quot; useBodyEncodingForURI=&quot;true&quot; redirectPort=&quot;8443&quot;</span></span><br><span class="line"><span class="deletion">-                   acceptCount=&quot;100&quot; disableUploadTimeout=&quot;true&quot; bindOnInit=&quot;false&quot;/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#本行为~/Atlassian/jirasoftware/atlassian-jira-software-8.13.11-standalone/conf/server.xml的第17行（随着Jira Software的不断更新，本行对应在你的server.yml中不一定是第17行，请以实际情况为准）</span><br><span class="line">&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.startup.VersionLoggerListener&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.core.AprLifecycleListener&quot; SSLEngine=&quot;on&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.core.JreMemoryLeakPreventionListener&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.mbeans.GlobalResourcesLifecycleListener&quot;/&gt;</span><br><span class="line">    &lt;Listener className=&quot;org.apache.catalina.core.ThreadLocalLeakPreventionListener&quot;/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Service name=&quot;Catalina&quot;&gt;</span><br><span class="line">        &lt;!--</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">         DEFAULT - Direct connector with no proxy for unproxied access to Jira.</span><br><span class="line"></span><br><span class="line">         If using a http/https proxy, comment out this connector.</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">        --&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- Relaxing chars because of JRASERVER-67974 --&gt;</span><br><span class="line"><span class="addition">+        &lt;!--</span></span><br><span class="line"><span class="addition">+        &lt;Connector port=&quot;8080&quot; relaxedPathChars=&quot;[]|&quot; relaxedQueryChars=&quot;[]|&#123;&#125;^\`&quot;&lt;&gt;&quot;</span></span><br><span class="line"><span class="addition">+                   maxThreads=&quot;150&quot; minSpareThreads=&quot;25&quot; connectionTimeout=&quot;20000&quot; enableLookups=&quot;false&quot;</span></span><br><span class="line"><span class="addition">+                   maxHttpHeaderSize=&quot;8192&quot; protocol=&quot;HTTP/1.1&quot; useBodyEncodingForURI=&quot;true&quot; redirectPort=&quot;8443&quot;</span></span><br><span class="line"><span class="addition">+                   acceptCount=&quot;100&quot; disableUploadTimeout=&quot;true&quot; bindOnInit=&quot;false&quot;/&gt;</span></span><br><span class="line"><span class="addition">+        --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>要使用 Candy 代理，需要将 HTTPS 代理连接器放开，同时设置端口为 8081（8080 已经用于本系列第一篇中的 code-server 服务了），代理域名设为 <a target="_blank" rel="noopener" href="http://proj.ql-isaac.cn">proj.ql-isaac.cn</a>：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#本行为~/Atlassian/jirasoftware/atlassian-jira-software-8.13.11-standalone/conf/server.xml的第62行（随着Jira Software的不断更新，本行对应在你的server.yml中不一定是第62：行，请以实际情况为准）</span><br><span class="line">        &lt;!--</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">         HTTPS - Proxying Jira via Apache or Nginx over HTTPS</span><br><span class="line"></span><br><span class="line">         If you&#x27;re proxying traffic to Jira over HTTPS, uncomment the below connector and comment out the others.</span><br><span class="line">         Ensure the proxyName and proxyPort are updated with the appropriate information if necessary as per the docs.</span><br><span class="line"></span><br><span class="line">         See the following for more information:</span><br><span class="line"></span><br><span class="line">            Apache - https://confluence.atlassian.com/x/PTT3MQ</span><br><span class="line">            nginx  - https://confluence.atlassian.com/x/DAFmGQ</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">        --&gt;</span><br><span class="line"></span><br><span class="line"><span class="deletion">-        &lt;!--</span></span><br><span class="line"><span class="deletion">-        &lt;Connector port=&quot;8080&quot; relaxedPathChars=&quot;[]|&quot; relaxedQueryChars=&quot;[]|&#123;&#125;^\`&quot;&lt;&gt;&quot;</span></span><br><span class="line"><span class="deletion">-                   maxThreads=&quot;150&quot; minSpareThreads=&quot;25&quot; connectionTimeout=&quot;20000&quot; enableLookups=&quot;false&quot;</span></span><br><span class="line"><span class="deletion">-                   maxHttpHeaderSize=&quot;8192&quot; protocol=&quot;HTTP/1.1&quot; useBodyEncodingForURI=&quot;true&quot; redirectPort=&quot;8443&quot;</span></span><br><span class="line"><span class="deletion">-                   acceptCount=&quot;100&quot; disableUploadTimeout=&quot;true&quot; bindOnInit=&quot;false&quot; secure=&quot;true&quot; scheme=&quot;https&quot;</span></span><br><span class="line"><span class="deletion">-                   proxyName=&quot;&lt;subdomain&gt;.&lt;domain&gt;.com&quot; proxyPort=&quot;443&quot;/&gt;</span></span><br><span class="line"><span class="deletion">-        --&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#本行为~/Atlassian/jirasoftware/atlassian-jira-software-8.13.11-standalone/conf/server.xml的第62行（随着Jira Software的不断更新，本行对应在你的server.yml中不一定是第62行，请以实际情况为准）</span><br><span class="line">        &lt;!--</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">         HTTPS - Proxying Jira via Apache or Nginx over HTTPS</span><br><span class="line"></span><br><span class="line">         If you&#x27;re proxying traffic to Jira over HTTPS, uncomment the below connector and comment out the others.</span><br><span class="line">         Ensure the proxyName and proxyPort are updated with the appropriate information if necessary as per the docs.</span><br><span class="line"></span><br><span class="line">         See the following for more information:</span><br><span class="line"></span><br><span class="line">            Apache - https://confluence.atlassian.com/x/PTT3MQ</span><br><span class="line">            nginx  - https://confluence.atlassian.com/x/DAFmGQ</span><br><span class="line">         <span class="comment">==============================================================================================================</span></span><br><span class="line">        --&gt;</span><br><span class="line"></span><br><span class="line"><span class="addition">+        &lt;Connector port=&quot;8081&quot; relaxedPathChars=&quot;[]|&quot; relaxedQueryChars=&quot;[]|&#123;&#125;^\`&quot;&lt;&gt;&quot;</span></span><br><span class="line"><span class="addition">+                   maxThreads=&quot;150&quot; minSpareThreads=&quot;25&quot; connectionTimeout=&quot;20000&quot; enableLookups=&quot;false&quot;</span></span><br><span class="line"><span class="addition">+                   maxHttpHeaderSize=&quot;8192&quot; protocol=&quot;HTTP/1.1&quot; useBodyEncodingForURI=&quot;true&quot; redirectPort=&quot;8443&quot;</span></span><br><span class="line"><span class="addition">+                   acceptCount=&quot;100&quot; disableUploadTimeout=&quot;true&quot; bindOnInit=&quot;false&quot; secure=&quot;true&quot; scheme=&quot;https&quot;</span></span><br><span class="line"><span class="addition">+                   proxyName=&quot;proj.ql-isaac.cn&quot; proxyPort=&quot;443&quot;/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编辑 Caddyfile，空一行，追加以下内容，重启 Caddy 服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">proj.ql-isaac.cn &#123;</span><br><span class="line">    reverse_proxy 127.0.0.1:8081</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>编辑 Caddyfile 和重启 Caddy 服务请见<a target="_blank" rel="noopener" href="https://blog.ql-isaac.cn/2021/09/08/Building_Personal_Cloud_Services(1)/#code-server%5B1%5D%5B2%5D">本系列第一篇</a></p>
+</div>
+<p>启动 Jira：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Atlassian/jirasoftware/atlassian-jira-software-8.13.11-standalone/bin</span><br><span class="line">./start-jira.sh</span><br></pre></td></tr></table></figure>
+<h3 id="设置-Jira-Software">设置 Jira Software</h3>
+<p>现在，可以通过域名公网访问了，还需要完成最后几步，先将语言设置成中文，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/28607436351f6cce43ffe29dfead1d08.png" alt="language.png"></p>
+<p>选择第二个，下一步：</p>
+<p><img data-src="https://img.imql.life/illustrations/0f855596601f710d2aeedbc560e6e36b.png" alt="第二个.png"></p>
+<p>选择“其他数据库”，设置数据库，密码就是上面自己设定的，设置好后可以点击测试连接，如下图，提示成功后下一步。</p>
+<p><img data-src="https://img.imql.life/illustrations/da064fd03bb21779e6dd0f6df9b6364e.png" alt="测试连接成功.png"></p>
+<p>心头一震，响应失败了：</p>
+<p><img data-src="https://img.imql.life/illustrations/87276e62216bd8b1bf295476c2594f52.png" alt="无法处理此请求.png"></p>
+<p>马上看了一下资源使用情况，如下图，好家伙，看来这 1h2g 的配置完全不够啊。</p>
+<p><img data-src="https://img.imql.life/illustrations/8d0f8a7fd4ea6587215386e8e189ff14.png" alt="不堪重负.png"></p>
+<p>等了许久，一直都显示的满负荷，去 TencentCloud Lighthouse 的监控页面看了一下，监控数据都接收不到，看来是死机了。</p>
+<p>看了一下轻量无忧计划 2h4g 的费用，告辞，本次搭建失败。后面考虑自建服务器吧，玩玩树莓派？</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://confluence.atlassian.com/adminjiraserver0813/connecting-jira-applications-to-mysql-5-7-1027137456.html">Connecting Jira applications to MySQL 5.7</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://confluence.atlassian.com/doc/database-jdbc-drivers-171742.html">Database JDBC Drivers</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://confluence.atlassian.com/adminjiraserver0813/supported-platforms-1027137429.html">Supported platforms</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://confluence.atlassian.com/adminjiraserver0813/installing-jira-applications-on-linux-from-archive-file-1027137443.html">Installing Jira applications on Linux from Archive File</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ubuntu/" rel="tag"><i class="fa fa-tag"></i> Ubuntu</a>
+              <a href="/tags/JDK/" rel="tag"><i class="fa fa-tag"></i> JDK</a>
+              <a href="/tags/Jira-Software/" rel="tag"><i class="fa fa-tag"></i> Jira Software</a>
+              <a href="/tags/Confluence/" rel="tag"><i class="fa fa-tag"></i> Confluence</a>
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/MySQL-Connector-J/" rel="tag"><i class="fa fa-tag"></i> MySQL Connector/J</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/15/My_First_Npm_Package/" rel="prev" title="我的第一个 npm 包？">
+                  <i class="fa fa-chevron-left"></i> 我的第一个 npm 包？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/13/Building_Personal_Cloud_Services_3/" rel="next" title="建立个人云服务（三）">
+                  建立个人云服务（三） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

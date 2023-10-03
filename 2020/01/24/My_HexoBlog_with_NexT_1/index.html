@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Hexo，一个静态博客框架，这意味着最低成本的部署，使用它的人也最多，插件和主题也最丰富。本文来记录和讲解一下我认为的搭建个人博客最佳实践，可供大家参考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的博客的诞生（一）">
+<meta property="og:url" content="http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_1/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="Hexo，一个静态博客框架，这意味着最低成本的部署，使用它的人也最多，插件和主题也最丰富。本文来记录和讲解一下我认为的搭建个人博客最佳实践，可供大家参考。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/0431ca765bdb7f7de1020a927982e674.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/3a8fb05e2477d4c678a4741c3085f07a.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/22f886f14ffdeaf0ca50b6946b4585c0.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/877e9a9b1894291c4bfa0d3100ece65e.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7ea2e35791371f86053f14c9c73f1293.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/e2c277e2b6c2a9425f94cba1086c3e39.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/fa8989bee9d2422c28dba1425b4cbb29.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/294b8288de63f07fee67854cbfb7cd6d.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7476f2738d454d52fad88ddaa3620aad.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/56c9451019103a6a1dc66683c504065a.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/43d468f06c8d2b676d8fab9cf2f4d466.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/d6038b6a419b92b8f16699ef6825ed98.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/8de041bb105a8be9f125f70b454702f0.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7d38727d19e4639125699c91d94d09bf.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/df1c1f3e89d4180b72b3e5849fd6262c.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7962a43d150da8eeb7bc6b440a743f1e.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/7ae8079ba505acb9a4701a3a3c112b9a.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/377f151d6356bc498d480e7a0f9c3c7b.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/789222c74ea97b63cc5e516598366b7e.png">
+<meta property="article:published_time" content="2020-01-24T14:40:00.000Z">
+<meta property="article:modified_time" content="2023-08-26T17:57:39.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/0431ca765bdb7f7de1020a927982e674.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_1/","path":"2020/01/24/My_HexoBlog_with_NexT_1/","title":"我的博客的诞生（一）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>我的博客的诞生（一） | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Node-js"><span class="nav-number">1.</span> <span class="nav-text">安装 Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-Git-2"><span class="nav-number">2.</span> <span class="nav-text">安装和配置 Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-hexo-cli"><span class="nav-number">3.</span> <span class="nav-text">安装 hexo-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%AA-Hexo-%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">初始化一个 Hexo 项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2"><span class="nav-number">5.</span> <span class="nav-text">本地部署自己的博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-GitHub-%E7%94%A8%E6%88%B7%E4%BB%93%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">创建 GitHub 用户仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E8%87%B3-Github-Pages"><span class="nav-number">7.</span> <span class="nav-text">部署至 Github Pages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E8%87%B3-Vercel"><span class="nav-number">8.</span> <span class="nav-text">部署至 Vercel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="nav-number">8.1.</span> <span class="nav-text">自定义域名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E8%87%B3-Webify"><span class="nav-number">9.</span> <span class="nav-text">部署至 Webify</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D%EF%BC%88%E9%9C%80%E5%A4%87%E6%A1%88%EF%BC%89"><span class="nav-number">9.1.</span> <span class="nav-text">自定义域名（需备案）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%83%E5%86%85%E5%A2%83%E5%A4%96%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2"><span class="nav-number">10.</span> <span class="nav-text">境内境外双线部署</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的博客的诞生（一）<a href="https://github.dev/ql-isaac/#_posts/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%AF%9E%E7%94%9F%EF%BC%88%E4%B8%80%EF%BC%89.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-24 22:40:00" itemprop="dateCreated datePublished" datetime="2020-01-24T22:40:00+08:00">2020-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-27 01:57:39" itemprop="dateModified" datetime="2023-08-27T01:57:39+08:00">2023-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">我的博客</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>，一个静态博客框架，这意味着最低成本的部署，使用它的人也最多，插件和主题也最丰富。本文来记录和讲解一下我认为的搭建个人博客最佳实践，可供大家参考。</p>
+<span id="more"></span>
+<div class="note primary"><p>本文对于文件（代码）变动的描述方式为 <code>-</code> 指删掉该行，<code>+</code> 指增加改行（如果你是直接复制此行，请注意删掉 <code>+</code> 和上下文对齐），<code>...</code> 表示省略上下文。另外，本文对于文件（代码）变动的描述只针对当时的文件（代码）版本，请根据实际情况决定对自己的相应文件（代码）进行变动。</p>
+</div>
+<h2 id="安装-Node-js">安装 Node.js</h2>
+<p>进入<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/"> Node.js 官方网站</a>，点击下载 LTX（Long Term Support）版，安装步骤非常简单，一直 next；</p>
+<h2 id="安装和配置-Git-2">安装和配置 Git</h2>
+<p>进入<a target="_blank" rel="noopener" href="https://git-scm.com/downloads"> Git 官方网站下载页面</a>，选择 Windows 版本的 Git 下载，<a target="_blank" rel="noopener" href="https://www.imql.life/2020/01/24/What_is_Git/#Windows-10-%E4%B8%8A%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE-Git">安装和配置步骤</a>我记录在上一篇文章中，请参考进行；</p>
+<h2 id="安装-hexo-cli">安装 hexo-cli</h2>
+<ol>
+<li>在合适的路径下新建一个文件夹，文件夹名自定义，例如 blog，作为&lt;博客构建目录&gt;；</li>
+<li>进入&lt;博客构建目录&gt;，在空白处点鼠标的右键，选择 Git Bash Here 进入终端；</li>
+<li>更换 <a target="_blank" rel="noopener" href="https://nodejs.org/en/knowledge/getting-started/npm/what-is-npm/">npm</a> 的源地址以提高包下载速度：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>在终端输入如下命令，回车，等待 hexo-cli 安装完成，完成后，可输入<code>hexo -v</code>查看相关版本信息；</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h2 id="初始化一个-Hexo-项目">初始化一个 Hexo 项目</h2>
+<ol start="5">
+<li>在终端输入<code>hexo init</code>，等待，可在&lt;博客构建目录&gt;中看到生成了如下图所示的文件；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/0431ca765bdb7f7de1020a927982e674.png" alt="初始文件" title="初始文件"></p>
+<h2 id="本地部署自己的博客">本地部署自己的博客</h2>
+<p>在终端输入 <code>hexo s</code>，<a target="_blank" rel="noopener" href="http://localhost:4000">查看本地部署自己的博客是否成功</a>；</p>
+<h2 id="创建-GitHub-用户仓库">创建 GitHub 用户仓库</h2>
+<p>点击右上角的加号，点击 New repository，填写 Repository name，这里的仓库名要按照”&lt;自己的 Github 用户名&gt;.github.io“的格式来填，填写 Description，点击 Creat repository，创建仓库成功；</p>
+<h2 id="部署至-Github-Pages">部署至 Github Pages</h2>
+<ol>
+<li>安装 Hexo 的 Git 插件。终端输入如下命令，回车，等待下载完成；</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>编辑 Hexo 的配置文件：</li>
+</ol>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line"><span class="deletion">-  type: &#x27;&#x27;</span></span><br><span class="line"><span class="addition">+  type: git</span></span><br><span class="line"><span class="addition">+  repo:</span></span><br><span class="line"><span class="addition">+    github: git@github.com:&lt;自己的Github用户名&gt;/&lt;自己的Github用户名&gt;.github.io.git,master</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在终端输入 <code>hexo g -d</code>，回车，进行博客的最终操作——生成静态文件后立即部署到 Github Pages 中（可看到上面创建了的仓库会相应生成我们的博客文件）；</li>
+<li><a target="_blank" rel="noopener" href="https://ql-isaac.github.io">大功告成，散花！（将域名中 ql-isaac 替换成自己的 Github 用户名）</a>;</li>
+</ol>
+<div class="note primary"><p>以上步骤完成后，对于初次搭建个人博客的小伙伴来说可不着急进行以下进阶部署方式，推荐阅读<a href="https://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_3/">本系列第三篇文章</a>开始写几篇笔记、博文吧~</p>
+</div>
+<h2 id="部署至-Vercel">部署至 Vercel</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://vercel.com/">Vercel</a>，我用过的最好用的网站托管平台，和 GitHub Pages 一样，也是用来托管你的博客的，但是它在国内的网络状况要比 GitHub Pages 好。首先点击登录：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/3a8fb05e2477d4c678a4741c3085f07a.png" alt="登录.png"></p>
+<ol start="2">
+<li>直接使用 GitHub 账号，如下图，之后会弹出一个授权窗口，授权一下；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/22f886f14ffdeaf0ca50b6946b4585c0.png" alt="直接使用GitHub账号.png"></p>
+<ol start="3">
+<li>点击 New Project，选择添加 GitHub 账户，如下图，确认安装 Vercel；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/877e9a9b1894291c4bfa0d3100ece65e.png" alt="添加GitHub账户.png"></p>
+<ol start="4">
+<li>默认是只显示你 GitHub 账户前五个更新了的仓库，如果在这里没找到上面创建了的仓库，可在搜索框内输入上面创建了的仓库的名称，即&lt;自己的 Github 用户名&gt;.github.io，这时就可以导入了，如下图；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/7ea2e35791371f86053f14c9c73f1293.png" alt="导入.png"></p>
+<ol start="5">
+<li>直接点击 deploy（部署）：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/e2c277e2b6c2a9425f94cba1086c3e39.png" alt="部署.png"></p>
+<ol start="6">
+<li><a target="_blank" rel="noopener" href="https://ql-isaac-github-io.vercel.app/">大功又告成，散花！（将域名中 ql-isaac 替换成自己的 Github 用户名）</a>;</li>
+</ol>
+<h3 id="自定义域名">自定义域名</h3>
+<ol start="7">
+<li>都自建了一个博客，博客域名怎么能不自己定义呢？<a target="_blank" rel="noopener" href="https://dnspod.cloud.tencent.com/">前往腾讯云域名注册</a>，搜索一下自己喜欢的名字，实在想不出什么来，可以和我一样用“imxx.xx&quot;的格式（I am xx），我选的域名为 <code>imql.life</code>，也不贵，一年 50 元以内；</li>
+<li>在以上创建的项目设置中，找到 Domains（域名），添加自定义博客域名，一般就是 <code>blog.xxx.xx</code>：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/fa8989bee9d2422c28dba1425b4cbb29.png" alt="自定义域名.png"></p>
+<ol start="9">
+<li>需要添加解析。前往 <a target="_blank" rel="noopener" href="https://console.dnspod.cn/dns/list">DNSPOD</a>，点击自己域名，添加解析，如下图；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/294b8288de63f07fee67854cbfb7cd6d.png" alt="添加解析.png"></p>
+<div class="note info"><p>这里的记录值填写 Vercel 专门给中国提供的一个值 <code>cname-china.vercel-dns.com</code>更好。</p>
+</div>
+<ol start="10">
+<li>大功又又告成，散花！访问自己定义的博客域名即可；</li>
+</ol>
+<h2 id="部署至-Webify">部署至 Webify</h2>
+<ol>
+<li>Webify，Web 应用托管，国内版的 Vercel，觉得 Vercel 还是比较慢的话就用这个吧。首先注册一个腾讯云账号，进入控制台，进入 Web 应用托管：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/7476f2738d454d52fad88ddaa3620aad.png" alt="Web应用托管.png"></p>
+<ol start="2">
+<li>新建应用：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/56c9451019103a6a1dc66683c504065a.png" alt="新建应用.png"></p>
+<ol start="3">
+<li>选择 Gitee 平台：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/43d468f06c8d2b676d8fab9cf2f4d466.png" alt="Gitee平台.png"></p>
+<div class="note info"><p>这里我试过其他三个平台，仓库更新触发部署都是失败的。</p>
+</div>
+<ol start="4">
+<li>授权：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/d6038b6a419b92b8f16699ef6825ed98.png" alt="授权.png"></p>
+<ol start="5">
+<li>鼠标移动到右上角加号处，选择从 GitHub/GitLab 导入仓库，复制上面创建了的仓库的地址到第一栏，仓库名称填自己的 Gitee 用户名，导入。</li>
+</ol>
+<div class="note info"><p>这里导入成功后，在仓库页面上边一栏的右侧服务处可开启 Gitee Pages，由于是国内的服务，访问速度肯定比 GitHub Pages 要快，但是需要实名认证，而且不支持自定义域名，不支持页面自动更新，在此不推荐。</p>
+</div>
+<ol start="6">
+<li>编辑 Hexo 的配置文件：</li>
+</ol>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">    github: git@github.com:&lt;自己的Github用户名&gt;/&lt;自己的Github用户名&gt;.github.io.git,master</span><br><span class="line"><span class="addition">+    gitee: git@gitee.com:&lt;自己的Gitee用户名&gt;/&lt;自己的Gitee用户名&gt;.git,master</span></span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>导入以上自己的 Gitee 用户名命名的仓库，框架选择纯静态页面；</li>
+<li>部署，确认；</li>
+<li>等待发布成功，相对来说有点慢；</li>
+<li>等待 CDN 配置；</li>
+<li>大功又又又告成，散花！访问自己的应用域名即可；</li>
+</ol>
+<h3 id="自定义域名（需备案）">自定义域名（需备案）</h3>
+<ol start="12">
+<li>在应用详情-应用设置中，点击添加域名，如下图。</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/8de041bb105a8be9f125f70b454702f0.png" alt="添加域名.png"></p>
+<ol start="13">
+<li>添加自定义域名（HTTPS 证书没有的话请点击链接申请一个，免费的）：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/7d38727d19e4639125699c91d94d09bf.png" alt="自定义域名.png"></p>
+<ol start="14">
+<li>等待变更（有点慢）；</li>
+<li>添加解析。前往 <a target="_blank" rel="noopener" href="https://console.dnspod.cn/dns/list">DNSPOD</a>，找到自己域名，找到上面添加的解析，修改记录值为 Webify 给的值，如下图；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/df1c1f3e89d4180b72b3e5849fd6262c.png" alt="Webify给的值.png"></p>
+<p><img data-src="https://img.imql.life/illustrations/7962a43d150da8eeb7bc6b440a743f1e.png" alt="修改解析" title="修改解析"></p>
+<ol start="16">
+<li>大功又又又又告成，散花！访问自己定义的博客域名即可；</li>
+</ol>
+<h2 id="境内境外双线部署">境内境外双线部署</h2>
+<p>最后的最后，你是否追求极致，是否希望最低成本实现全球部署，很简单，再添加一个解析，线路类型为境外，记录值为 <code>cname.vercel-dns.com</code>即可。</p>
+<p><img data-src="https://img.imql.life/illustrations/7ae8079ba505acb9a4701a3a3c112b9a.png" alt="境外.png"></p>
+<p><img data-src="https://img.imql.life/illustrations/377f151d6356bc498d480e7a0f9c3c7b.png" alt="国内测速.png"></p>
+<p><img data-src="https://img.imql.life/illustrations/789222c74ea97b63cc5e516598366b7e.png" alt="国际测速.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/Node-js/" rel="tag"><i class="fa fa-tag"></i> Node.js</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/24/What_is_Git/" rel="prev" title="什么是 Git？">
+                  <i class="fa fa-chevron-left"></i> 什么是 Git？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/24/My_HexoBlog_with_NexT_2/" rel="next" title="我的博客的诞生（二）">
+                  我的博客的诞生（二） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="静态网站的弊端就是不能随时随地的更新，这是我一直以来的痛。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立个人云服务（一）">
+<meta property="og:url" content="http://blog.imql.life/2021/09/08/Building_Personal_Cloud_Services_1/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="静态网站的弊端就是不能随时随地的更新，这是我一直以来的痛。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/42521cac27e2ed0e5f75bd3274f75d06.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/6c78b410e2f10ad8c9821cc900eb9151.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/6b12700e9b9a8d18ae35952048354a5f.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/034e78ef8dd87a82865fb412df6d8a82.jpeg">
+<meta property="article:published_time" content="2021-09-08T03:03:53.000Z">
+<meta property="article:modified_time" content="2021-09-08T03:03:53.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="Code Server">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/42521cac27e2ed0e5f75bd3274f75d06.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2021/09/08/Building_Personal_Cloud_Services_1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2021/09/08/Building_Personal_Cloud_Services_1/","path":"2021/09/08/Building_Personal_Cloud_Services_1/","title":"建立个人云服务（一）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>建立个人云服务（一） | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Codespaces"><span class="nav-number">1.</span> <span class="nav-text">Codespaces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Server"><span class="nav-number">2.</span> <span class="nav-text">Code Server[1]</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2021/09/08/Building_Personal_Cloud_Services_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          建立个人云服务（一）<a href="https://github.dev/ql-isaac/#_posts/%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%EF%BC%88%E4%B8%80%EF%BC%89.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-08 11:03:53" itemprop="dateCreated datePublished" datetime="2021-09-08T11:03:53+08:00">2021-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E4%BA%91%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">建立个人云服务</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>静态网站的弊端就是不能随时随地的更新，这是我一直以来的痛。</p>
+<span id="more"></span>
+<h2 id="Codespaces">Codespaces</h2>
+<p>Codespaces 是 GitHub 推出的在线编辑器，简单点说，就是可以实现将你本地的以 VsCode 为核心的开发环境迁移到云端，这样你只需要使用浏览器就可以随时随地进行开发，还可以多人协作。</p>
+<p>目前这一云服务还不能免费使用，但是有一部分功能可以免费使用，那就是升级版的代码浏览编辑功能，请看下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/42521cac27e2ed0e5f75bd3274f75d06.png" alt="代码浏览编辑.png"></p>
+<p>以<a target="_blank" rel="noopener" href="https://github.com/ql-isaac/hexoblog">我的仓库</a>为例，在仓库页面，按下 <code>.</code>之后，天啊，这不就是 Web 版 VsCode 吗？</p>
+<p><img data-src="https://img.imql.life/illustrations/6c78b410e2f10ad8c9821cc900eb9151.png" alt="hexoblog.png"></p>
+<p>再结合 GitHub Actions，这不就实现了在线写博客了吗？</p>
+<p>可是我突然又发现了另外一个痛点，这写完博客不能 <code>hexo s</code>预览怎么办？也不能升级主题什么的，到头来还是要在本地环境写博客预览发布。</p>
+<h2 id="Code-Server">Code Server<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h2>
+<p>我抓住网页端 VsCode 这一关键词，果然搜到了这个开源项目 <a target="_blank" rel="noopener" href="https://github.com/cdr/code-server">code-server</a>，那么，我之前买的腾讯云无忧实例就有用武之地了。</p>
+<p>SSH 方式登录实例，我的实例是 Ubuntu 18.04 的，执行如下命令，其中 $VERSION 替换为版本号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fOL https://github.com/cdr/code-server/releases/download/v<span class="variable">$VERSION</span>/code-server_<span class="variable">$VERSION_amd64</span>.deb</span><br></pre></td></tr></table></figure>
+<p>发现根本下不动，正常正常。其实以上命令就是下载那个 deb 包，于是直接在仓库 Releases 页面下载然后上传到实例中，下载速度还不赖。</p>
+<p>上传完成后，就是安装了，安装命令如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i code-server_<span class="variable">$VERSION_amd64</span>.deb</span><br></pre></td></tr></table></figure>
+<p>最后启用并启动服务，其中 $USER 替换为你自己的用户名，这个各位自定义即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> --now code-server@<span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+<p>现在，就可以访问本地 8080 端口了，此时如果你以为也可以通过实例的公网 IP 加端口访问到 code-server 就大错特错了。我一开始也是这么以为，在实例控制台放行了端口还是不行，原来目前只是本地运行，要想暴露在公网，需要使用 HTTPS，code-server 的官方文档提供给了几种解决办法，我使用的是 Caddy，它类似于 Nginx，但相比之下它最大的一个特点是能帮你自动申请域名的数字证书。</p>
+<p>首先是到自己的域名服务商那里添加一个 A 记录，主机记录就填 dev，记录值填实例的公网 IP，接着就是安装 Caddy，依次执行以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https</span><br><span class="line">curl -1sLf <span class="string">&#x27;https://dl.cloudsmith.io/public/caddy/stable/cfg/gpg/gpg.155B6D79CA56EA34.key&#x27;</span> | sudo apt-key add -</span><br><span class="line">curl -1sLf <span class="string">&#x27;https://dl.cloudsmith.io/public/caddy/stable/cfg/setup/config.deb.txt?distro=debian&amp;version=any-version&#x27;</span> | sudo <span class="built_in">tee</span> -a /etc/apt/sources.list.d/caddy-stable.list</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install caddy</span><br></pre></td></tr></table></figure>
+<p>接着执行如下命令编辑 Caddyfile。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/caddy/Caddyfile</span><br></pre></td></tr></table></figure>
+<p>删除原来的内容，进行如下配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dev.ql-isaac.cn &#123;</span><br><span class="line">    reverse_proxy 127.0.0.1:8080</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后重启 Caddy 服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl reload caddy</span><br></pre></td></tr></table></figure>
+<p>这时，就可以通过域名公网访问了：</p>
+<p><img data-src="https://img.imql.life/illustrations/6b12700e9b9a8d18ae35952048354a5f.png" alt="公网访问.png"></p>
+<p>以上的密码可以打开 config.yaml 查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> ~/.config/code-server/config.yaml</span><br></pre></td></tr></table></figure>
+<p>或者自己设定密码，$USER 替换为你自己的用户名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.config/code-server/config.yaml</span><br><span class="line">sudo systemctl restart code-server@<span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+<p>手机端也可以用：</p>
+<p><img data-src="https://img.imql.life/illustrations/034e78ef8dd87a82865fb412df6d8a82.jpeg" alt="手机端" title="手机端"></p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://github.com/cdr/code-server/blob/main/docs/guide.md#using-lets-encrypt-with-caddy">code-server 指导</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ubuntu/" rel="tag"><i class="fa fa-tag"></i> Ubuntu</a>
+              <a href="/tags/Code-Server/" rel="tag"><i class="fa fa-tag"></i> Code Server</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/29/The_Practice_of_Windows_10_Encapsulation/" rel="prev" title="Windows 10 封装实践">
+                  <i class="fa fa-chevron-left"></i> Windows 10 封装实践
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/15/My_First_Npm_Package/" rel="next" title="我的第一个 npm 包？">
+                  我的第一个 npm 包？ <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

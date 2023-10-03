@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="“hub”，乃中心之意，当你看了我的另外一篇《什么是 Git》，对 Git 已经熟悉一些的时候，就会自然明白&quot;GitHub&quot;的含义。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是 GitHub？">
+<meta property="og:url" content="http://blog.imql.life/2021/08/14/What_is_GitHub/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="“hub”，乃中心之意，当你看了我的另外一篇《什么是 Git》，对 Git 已经熟悉一些的时候，就会自然明白&quot;GitHub&quot;的含义。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/2f86183c15ea9fb3551e9ebc8e9898cf.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/520d3e0bd0b460d45064eff773cb72c8.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/9a1c2edb10035cba981168383170791b.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/8db197fb2c48e4314982940bc343fd17.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/4947b1eb819e76189076e269fd844d65.png">
+<meta property="article:published_time" content="2021-08-14T08:52:10.000Z">
+<meta property="article:modified_time" content="2023-08-26T13:45:38.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="学习与生活">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/2f86183c15ea9fb3551e9ebc8e9898cf.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2021/08/14/What_is_GitHub/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2021/08/14/What_is_GitHub/","path":"2021/08/14/What_is_GitHub/","title":"什么是 GitHub？"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什么是 GitHub？ | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-commit-%E8%A7%84%E8%8C%83%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">git commit 规范化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emoji-%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">emoji 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type"><span class="nav-number">1.3.</span> <span class="nav-text">type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope"><span class="nav-number">1.4.</span> <span class="nav-text">scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subject"><span class="nav-number">1.5.</span> <span class="nav-text">subject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.6.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fork"><span class="nav-number">2.</span> <span class="nav-text">Fork</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Actions"><span class="nav-number">3.</span> <span class="nav-text">GitHub Actions</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2021/08/14/What_is_GitHub/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是 GitHub？<a href="https://github.dev/ql-isaac/#_posts/%E4%BB%80%E4%B9%88%E6%98%AF%20GitHub%EF%BC%9F.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-14 16:52:10" itemprop="dateCreated datePublished" datetime="2021-08-14T16:52:10+08:00">2021-08-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-26 21:45:38" itemprop="dateModified" datetime="2023-08-26T21:45:38+08:00">2023-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git-%E5%92%8C-GitHub-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/" itemprop="url" rel="index"><span itemprop="name">Git 和 GitHub 从入门到实践</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>“hub”，乃中心之意，当你看了我的另外一篇<a target="_blank" rel="noopener" href="https://www.ql-isaac.cn/2020/01/24/What_is_Git/">《什么是 Git》</a>，对 Git 已经熟悉一些的时候，就会自然明白&quot;GitHub&quot;的含义。</p>
+<span id="more"></span>
+<h2 id="git-commit-规范化">git commit 规范化</h2>
+<h3 id="命令格式">命令格式</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;&lt;emoji代码&gt; &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="emoji-代码">emoji 代码</h3>
+<p><a target="_blank" rel="noopener" href="https://gitmoji.dev/">这里有一套约定俗成的 emoji 使用规范</a>，常用的如下表：</p>
+<table>
+<thead>
+<tr>
+<th>emoji</th>
+<th>emoji 代码</th>
+<th>commit 说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🎨 (调色板)</td>
+<td><code>:art:</code></td>
+<td>改进代码结构/代码格式</td>
+</tr>
+<tr>
+<td>⚡️ (闪电) /🐎 (赛马)</td>
+<td><code>:zap:</code>/<code>:racehorse:</code></td>
+<td>提升性能</td>
+</tr>
+<tr>
+<td>🔥 (火焰)</td>
+<td><code>:fire:</code></td>
+<td>移除代码或文件</td>
+</tr>
+<tr>
+<td>🐛 (bug)</td>
+<td><code>:bug:</code></td>
+<td>修复 bug</td>
+</tr>
+<tr>
+<td>🚑 (急救车)</td>
+<td><code>:ambulance:</code></td>
+<td>重要补丁</td>
+</tr>
+<tr>
+<td>✨ (火花)</td>
+<td><code>:sparkles:</code></td>
+<td>引入新功能</td>
+</tr>
+<tr>
+<td>📝 (备忘录)</td>
+<td><code>:memo:</code></td>
+<td>撰写文档</td>
+</tr>
+<tr>
+<td>🚀 (火箭)</td>
+<td><code>:rocket:</code></td>
+<td>部署功能</td>
+</tr>
+<tr>
+<td>💄 (口红)</td>
+<td><code>:lipstick:</code></td>
+<td>更新 UI 和样式文件</td>
+</tr>
+<tr>
+<td>🎉 (庆祝)</td>
+<td><code>:tada:</code></td>
+<td>初次提交</td>
+</tr>
+<tr>
+<td>✅ (白色复选框)</td>
+<td><code>:white_check_mark:</code></td>
+<td>更新测试</td>
+</tr>
+<tr>
+<td>🔒 (锁)</td>
+<td><code>:lock:</code></td>
+<td>修复安全问题</td>
+</tr>
+<tr>
+<td>🍎 (苹果)</td>
+<td><code>:apple:</code></td>
+<td>修复 macOS 下的问题</td>
+</tr>
+<tr>
+<td>🐧 (企鹅)</td>
+<td><code>:penguin:</code></td>
+<td>修复 Linux 下的问题</td>
+</tr>
+<tr>
+<td>🏁 (旗帜)</td>
+<td><code>:checkered_flag:</code></td>
+<td>修复 Windows 下的问题</td>
+</tr>
+<tr>
+<td>🤖（机器人）</td>
+<td><code>:robot:</code></td>
+<td>修复 Android 下的问题</td>
+</tr>
+<tr>
+<td>🍏 (绿苹果)</td>
+<td><code>:green_apple:</code></td>
+<td>修复 iOS 下的问题</td>
+</tr>
+<tr>
+<td>🔖 (书签)</td>
+<td><code>:bookmark:</code></td>
+<td>发行/版本标签</td>
+</tr>
+<tr>
+<td>🚨 (警车灯)</td>
+<td><code>:rotating_light:</code></td>
+<td>移除 linter 警告</td>
+</tr>
+<tr>
+<td>🚧 (施工)</td>
+<td><code>:construction:</code></td>
+<td>工作进行中</td>
+</tr>
+<tr>
+<td>👷 (工人)</td>
+<td><code>:construction_worker:</code></td>
+<td>添加 CI 构建系统</td>
+</tr>
+<tr>
+<td>💚 (绿心)</td>
+<td><code>:green_heart:</code></td>
+<td>修复 CI 构建问题</td>
+</tr>
+<tr>
+<td>⬆️ (上升箭头)</td>
+<td><code>:arrow_up:</code></td>
+<td>升级依赖</td>
+</tr>
+<tr>
+<td>⬇️ (下降箭头)</td>
+<td><code>:arrow_down:</code></td>
+<td>降级依赖</td>
+</tr>
+<tr>
+<td>📌 (图钉)</td>
+<td><code>:pushpin:</code></td>
+<td>将依赖项固定到特定版本</td>
+</tr>
+<tr>
+<td>📈 (上升趋势图)</td>
+<td><code>:chart_with_upwards_trend:</code></td>
+<td>添加分析或跟踪代码</td>
+</tr>
+<tr>
+<td>♻️ （回收）</td>
+<td><code>:recycle:</code></td>
+<td>重构代码</td>
+</tr>
+<tr>
+<td>🐳 (鲸鱼)</td>
+<td><code>:whale:</code></td>
+<td>Docker 相关工作</td>
+</tr>
+<tr>
+<td>🌐 (带子午线的地球仪)</td>
+<td><code>:globe_with_meridians:</code></td>
+<td>国际化与本地化</td>
+</tr>
+<tr>
+<td>➕ (加号)</td>
+<td><code>:heavy_plus_sign:</code></td>
+<td>增加一个依赖</td>
+</tr>
+<tr>
+<td>➖ (减号)</td>
+<td><code>:heavy_minus_sign:</code></td>
+<td>减少一个依赖</td>
+</tr>
+<tr>
+<td>🔧 (扳手)</td>
+<td><code>:wrench:</code></td>
+<td>修改配置文件</td>
+</tr>
+<tr>
+<td>🔨 (锤子)</td>
+<td><code>:hammer:</code></td>
+<td>重大重构</td>
+</tr>
+<tr>
+<td>✏️ (铅笔)</td>
+<td><code>:pencil2:</code></td>
+<td>修复 typo</td>
+</tr>
+<tr>
+<td>💩 (粑粑…)</td>
+<td><code>:poop:</code></td>
+<td>写了辣鸡代码需要优化</td>
+</tr>
+<tr>
+<td>⏪ (倒带)</td>
+<td><code>:rewind:</code></td>
+<td>恢复更改</td>
+</tr>
+<tr>
+<td>🔀 (交叉向右的箭头)</td>
+<td><code>:twisted_rightwards_arrows:</code></td>
+<td>合并分支</td>
+</tr>
+<tr>
+<td>📦 (包裹)</td>
+<td><code>:package:</code></td>
+<td>更新编译的文件或包</td>
+</tr>
+<tr>
+<td>👽 (外星人)</td>
+<td><code>:alien:</code></td>
+<td>由于外部 API 更改而更新代码</td>
+</tr>
+<tr>
+<td>🚚 (货车)</td>
+<td><code>:truck:</code></td>
+<td>移动或者重命名文件</td>
+</tr>
+<tr>
+<td>📄 (正面朝上的页面)</td>
+<td><code>:page_facing_up:</code></td>
+<td>增加或更新许可证书</td>
+</tr>
+<tr>
+<td>💥 (爆炸)</td>
+<td><code>:boom:</code></td>
+<td>引入突破性的变化</td>
+</tr>
+<tr>
+<td>🍱 (铅笔)</td>
+<td><code>:bento:</code></td>
+<td>增加或更新资源</td>
+</tr>
+<tr>
+<td>👌 (OK 手势)</td>
+<td><code>:ok_hand:</code></td>
+<td>由于代码审查更改而更新代码</td>
+</tr>
+<tr>
+<td>♿️ (轮椅)</td>
+<td><code>:wheelchair:</code></td>
+<td>改善无障碍交互</td>
+</tr>
+<tr>
+<td>💡 (灯泡)</td>
+<td><code>:bulb:</code></td>
+<td>给代码添加注释</td>
+</tr>
+<tr>
+<td>🍻 (啤酒)</td>
+<td><code>:beers:</code></td>
+<td>醉醺醺地写代码…</td>
+</tr>
+<tr>
+<td>💬 (消息气泡)</td>
+<td><code>:speech_balloon:</code></td>
+<td>更新文本文档</td>
+</tr>
+<tr>
+<td>🗃 (卡片文件盒)</td>
+<td><code>:card_file_box:</code></td>
+<td>执行与数据库相关的更改</td>
+</tr>
+<tr>
+<td>🔊 (音量大)</td>
+<td><code>:loud_sound:</code></td>
+<td>增加日志</td>
+</tr>
+<tr>
+<td>🔇 (静音)</td>
+<td><code>:mute:</code></td>
+<td>移除日志</td>
+</tr>
+<tr>
+<td>👥 (轮廓中的半身像)</td>
+<td><code>:busts_in_silhouette:</code></td>
+<td>增加贡献者</td>
+</tr>
+<tr>
+<td>🚸 (孩童通行)</td>
+<td><code>:children_crossing:</code></td>
+<td>优化用户体验、可用性</td>
+</tr>
+<tr>
+<td>🏗 (建筑建造)</td>
+<td><code>:building_construction:</code></td>
+<td>结构变动</td>
+</tr>
+<tr>
+<td>📱 (iPhone)</td>
+<td><code>:iphone:</code></td>
+<td>做响应式设计</td>
+</tr>
+<tr>
+<td>🤡 (小丑脸)</td>
+<td><code>:clown_face:</code></td>
+<td>嘲弄事物（直译，这个没明白）</td>
+</tr>
+<tr>
+<td>🥚 (鸡蛋)</td>
+<td><code>:egg:</code></td>
+<td>增加彩蛋</td>
+</tr>
+<tr>
+<td>🙈 (看不见邪恶)</td>
+<td><code>:see_no_evil:</code></td>
+<td>增加或更改 gitignore</td>
+</tr>
+<tr>
+<td>📸 (照相机闪光灯)</td>
+<td><code>:camera_flash:</code></td>
+<td>增加或更新截图</td>
+</tr>
+<tr>
+<td>⚗️ (蒸馏器)</td>
+<td><code>:alembic:</code></td>
+<td>尝试新东西</td>
+</tr>
+<tr>
+<td>🔍 (放大镜)</td>
+<td><code>:mag:</code></td>
+<td>SEO 优化</td>
+</tr>
+<tr>
+<td>☸️ (船的方向盘)</td>
+<td><code>:wheel_of_dharma:</code></td>
+<td>关于 Kubernetes 的工作</td>
+</tr>
+<tr>
+<td>🏷 (标签)</td>
+<td><code>:label:</code></td>
+<td>增加类型（FLow、Typescript）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="type">type</h3>
+<p>用于说明 commit 的类别，有下表所示的可选项：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat</code></td>
+<td>新功能（feature）</td>
+</tr>
+<tr>
+<td><code>fix/to</code></td>
+<td>修复 bug，可以是 QA 发现的 BUG，也可以是研发自己发现的 BUG。<code>fix</code>：产生 diff 并自动修复此问题，适用于一次提交直接修复问题。 <code>to</code>：只产生 diff 不自动修复此问题，适用于多次提交，最终修复问题提交时使用 fix</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>文档（documentation）</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>格式（不影响代码运行的变动）</td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>重构（即不是新增功能，也不是修改 bug 的代码变动）</td>
+</tr>
+<tr>
+<td><code>perf</code></td>
+<td>优化相关，比如提升性能、体验</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>增加测试</td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>构建过程或辅助工具的变动</td>
+</tr>
+<tr>
+<td><code>revert</code></td>
+<td>回滚到上一个版本</td>
+</tr>
+<tr>
+<td><code>merge</code></td>
+<td>代码合并</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>同步主线或分支的 Bug</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scope">scope</h3>
+<p>用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，scope 可以省略。如果 commit 影响了不止一个 scope，可以使用<code>*</code>。</p>
+<h3 id="subject">subject</h3>
+<p>这个就是 commit 的说明了，不超过 50 个字符，结尾不加标点符号。</p>
+<h3 id="示例">示例</h3>
+<p>某次提交：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;:art: style: 格式修改&quot;</span></span><br></pre></td></tr></table></figure>
+<p>GitHub 上的效果图：</p>
+<p><img data-src="https://img.imql.life/illustrations/2f86183c15ea9fb3551e9ebc8e9898cf.png" alt="提交示例" title="提交示例"></p>
+<h2 id="Fork">Fork</h2>
+<p>GitHub 是一个宝库，每当发现一个有趣的仓库，我们不仅仅会去点一个 Star（收藏）或 Watch（关注），我们还会去 Fork 一下该开源仓库：</p>
+<p><img data-src="https://img.imql.life/illustrations/520d3e0bd0b460d45064eff773cb72c8.png" alt="Fork" title="Fork"></p>
+<p>这样，该仓库会被克隆一份成为自己的仓库：</p>
+<p><img data-src="https://img.imql.life/illustrations/9a1c2edb10035cba981168383170791b.png" alt="自己的仓库" title="自己的仓库"></p>
+<p>之后原仓库是不断有作者在更新，自己的仓库也想获得这些更新怎么办？其实很简单，如下图，这里正是在提示你原仓库的 main 分支已经超前了 13 次提交。</p>
+<p><img data-src="https://img.imql.life/illustrations/8db197fb2c48e4314982940bc343fd17.png" alt="upstream" title="upstream"></p>
+<p>我们只需要点击右侧的 Fetch upstream 从原仓库进行拉取，这样自己这边的仓库也是最新的了。</p>
+<p><img data-src="https://img.imql.life/illustrations/4947b1eb819e76189076e269fd844d65.png" alt="fetch" title="fetch"></p>
+<h2 id="GitHub-Actions">GitHub Actions</h2>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/03/Git_for_Windows_1/" rel="prev" title="Git for Windows(1)">
+                  <i class="fa fa-chevron-left"></i> Git for Windows(1)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/22/Git_for_Windows_2/" rel="next" title="Git for Windows(2)">
+                  Git for Windows(2) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

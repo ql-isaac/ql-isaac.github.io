@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="上回说到，我辛辛苦苦白忙活了一趟后发现配置太低服务根本跑不起来，奈何高配置的又太贵，于是决定买个树莓派玩玩，搞个自建服务器，但前提是需要内网穿透。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立个人云服务（三）">
+<meta property="og:url" content="http://blog.imql.life/2021/10/13/Building_Personal_Cloud_Services_3/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="上回说到，我辛辛苦苦白忙活了一趟后发现配置太低服务根本跑不起来，奈何高配置的又太贵，于是决定买个树莓派玩玩，搞个自建服务器，但前提是需要内网穿透。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/2fe215c8b285eb3d5b59abe9f10d85dd.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/afebe5b19b96bc63da7252986399798a.png">
+<meta property="article:published_time" content="2021-10-13T04:53:21.000Z">
+<meta property="article:modified_time" content="2021-11-13T04:53:21.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="frp">
+<meta property="article:tag" content="Raspberry Pi OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/2fe215c8b285eb3d5b59abe9f10d85dd.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2021/10/13/Building_Personal_Cloud_Services_3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2021/10/13/Building_Personal_Cloud_Services_3/","path":"2021/10/13/Building_Personal_Cloud_Services_3/","title":"建立个人云服务（三）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>建立个人云服务（三） | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">1.</span> <span class="nav-text">内网穿透</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-frps"><span class="nav-number">2.</span> <span class="nav-text">安装 frps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-frpc"><span class="nav-number">3.</span> <span class="nav-text">安装 frpc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2021/10/13/Building_Personal_Cloud_Services_3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          建立个人云服务（三）<a href="https://github.dev/ql-isaac/#_posts/%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%EF%BC%88%E4%B8%89%EF%BC%89.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-13 12:53:21" itemprop="dateCreated datePublished" datetime="2021-10-13T12:53:21+08:00">2021-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-13 12:53:21" itemprop="dateModified" datetime="2021-11-13T12:53:21+08:00">2021-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E4%BA%91%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">建立个人云服务</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>上回说到，我辛辛苦苦白忙活了一趟后发现配置太低服务根本跑不起来，奈何高配置的又太贵，于是决定买个树莓派玩玩，搞个自建服务器，但前提是需要内网穿透。</p>
+<span id="more"></span>
+<h2 id="内网穿透">内网穿透</h2>
+<p>字面理解，想必大家已经猜到内网穿透是干嘛的了。自己有一台服务器，如何才能向互联网提供服务呢，对于一般个人来说，唯一的方法就是内网穿透，而相应的方案稍微查一查也能发现有许多，我选择的是开源软件——<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp">frp</a>搭配腾讯云无忧实例的方案。</p>
+<p>简单说下原理，frp 分为服务端（frps）和客户端（frpc）两部分，frps 部署在腾讯云无忧实例中，frpc 部署在自建服务器中，启动本地服务后，frp 可以将本地服务的端口映射到无忧实例的某一端口，这样，客户端和无忧实例的端口通信就相当于与本地服务的端口通信。</p>
+<h2 id="安装-frps">安装 frps</h2>
+<p>首先是去 <a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">frp 发布页面</a>下载最新的安装包，这里有许多的版本，我们 SSH 连接无忧实例执行<code>uname -m</code>查看其硬件平台，是 x86_64，则应该下载 amd64 版本的，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/2fe215c8b285eb3d5b59abe9f10d85dd.png" alt="下载frp.png"></p>
+<p>下载完毕后上传到无忧实例家目录下。</p>
+<p>解压缩到家目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf ~/frp_0.37.1_linux_amd64.tar.gz -C ~</span><br></pre></td></tr></table></figure>
+<p>编辑 frps 配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/frp_0.37.1_linux_amd64/frps.ini</span><br></pre></td></tr></table></figure>
+<p>默认 frps 绑定的端口是 7000，我们需要再设定一下 Token 认证<a href="#%E5%8F%82%E8%80%83">[1]</a>，要不然我们的内网穿透服务对任何人都是可用的。为此，追加下面的内容。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line"><span class="addition">+authentication_method = token</span></span><br><span class="line"><span class="addition">+token = &lt;一串字符&gt;</span></span><br></pre></td></tr></table></figure>
+<p>启动 frps：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/frp_0.37.1_linux_amd64</span><br><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
+<p>以这种方式启动的话，你会发现你干不了其他事，按<code>ctrl+c</code>的话程序也会退出。我们可以使用<code>nohup</code>让其在后台运行，同时错误日志会重定向到 frps.log 中，方便查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c ./frps.ini &gt; frps.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<div class="note warning"><p>后台运行后，如果你是通过 SSH 连接的无忧实例，不要直接叉掉窗口，这样 frps 仍会停止运行，这里需要执行<code>exit</code>注销掉当前会话，再叉掉窗口才行。</p>
+</div>
+<p>是的，现在 frps 的确是在后台运行了，可是万一无忧实例重启了怎么办，还要执行一下上面的命令。Linux 系统工具——Systemd 是最终的解决之道，刚好在目录 frp_0.37.1_linux_amd64 下有一个 systemd 目录，作者已经给我们提供了现成的配置文件，只需修改一二。</p>
+<p>编辑 frps.service：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> systemd</span><br><span class="line">vim frps.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Frp Server Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"><span class="deletion">-User=nobody</span></span><br><span class="line"><span class="addition">+User=ubuntu</span></span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line"><span class="deletion">-ExecStart=/usr/bin/frps -c /etc/frp/frps.ini</span></span><br><span class="line"><span class="addition">+ExecStart=/home/ubuntu/frp_0.37.1_linux_amd64/frps -c /home/ubuntu/frp_0.37.1_linux_amd64/frps.ini</span></span><br><span class="line">LimitNOFILE=1048576</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>复制 frps.service 到指定目录（没有请自建）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> ~/frp_0.37.1_linux_amd64/systemd/frps.service /usr/lib/systemd/system</span><br></pre></td></tr></table></figure>
+<p>启用并启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> --now frps</span><br></pre></td></tr></table></figure>
+<h2 id="安装-frpc">安装 frpc</h2>
+<p>SSH 连接树莓派 4B，同样执行<code>uname -m</code>，是 armv71，应该下载 arm 版本的，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/afebe5b19b96bc63da7252986399798a.png" alt="arm.png"></p>
+<p>上传到树莓派、解压，编辑 frpc 配置文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/Document/frp_0.37.1_linux_arm/frpc.ini</span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line"><span class="deletion">-server_addr = 127.0.0.1</span></span><br><span class="line"><span class="addition">+server_addr = &lt;无忧实例的公网IP&gt;</span></span><br><span class="line">server_port = 7000</span><br><span class="line"><span class="addition">+authentication_method = token</span></span><br><span class="line"><span class="addition">+token = &lt;一串字符&gt;</span></span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>[common] 部分对应 frps 的 [common] 部分，注意 token 要保持一致。[ssh] 部分表示的就是本地 SSH 的 22 端口与无忧实例的 6000 端口的映射关系。关于 frp 的更多使用，可见<a target="_blank" rel="noopener" href="https://gofrp.org/">官方中文文档</a></p>
+</div>
+<p>也是需要后台随操作系统启动运行，同理，编辑 frpc.service：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/Document/frp_0.37.1_linux_arm/systemd/frpc.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Frp Client Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"><span class="deletion">-User=nobody</span></span><br><span class="line"><span class="addition">+User=pi</span></span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line"><span class="deletion">-ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini</span></span><br><span class="line"><span class="deletion">-ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini</span></span><br><span class="line"><span class="addition">+ExecStart=/home/pi/Document/frp_0.37.1_linux_arm/frpc -c /home/pi/Document/frp_0.37.1_linux_arm/frpc.ini</span></span><br><span class="line"><span class="addition">+ExecReload=/home/pi/Document/frp_0.37.1_linux_arm/frpc reload -c /home/pi/Document/frp_0.37.1_linux_arm/frpc.ini</span></span><br><span class="line">LimitNOFILE=1048576</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>复制 frpc.service 到指定路径下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> ~/Document/frp_0.37.1_linux_arm/systemd/frpc.service /usr/lib/systemd/system</span><br></pre></td></tr></table></figure>
+<p>启用并启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> --now frpc</span><br></pre></td></tr></table></figure>
+<h2 id="验证">验证</h2>
+<p>以上 frps 和 frpc 都安装上后，默认是已经将树莓派的 SSH 服务的 22 端口映射到了无忧实例的 6000 端口。我在任何一台联网的机器上，都可以执行以下命令或者使用 SSH 连接工具去连接我的树莓派。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 6000 pi@&lt;无忧实例的公网IP&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp#authenticating-the-client">Authenticating the Client</a> <a href="#fnref1">↩︎</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/frp/" rel="tag"><i class="fa fa-tag"></i> frp</a>
+              <a href="/tags/Raspberry-Pi-OS/" rel="tag"><i class="fa fa-tag"></i> Raspberry Pi OS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/03/Building_Personal_Cloud_Services_2/" rel="prev" title="建立个人云服务（二）">
+                  <i class="fa fa-chevron-left"></i> 建立个人云服务（二）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/11/Building_Personal_Cloud_Services_4/" rel="next" title="建立个人云服务（四）">
+                  建立个人云服务（四） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

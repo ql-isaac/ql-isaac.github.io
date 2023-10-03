@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="Powershell——微软拥抱开源的又一力作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows PowerShell">
+<meta property="og:url" content="http://blog.imql.life/2022/03/19/Windows_PowerShell/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="Powershell——微软拥抱开源的又一力作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/f0bd31264a4123e055441e3074f98dd7.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/559cef53152f46e7df50f7da185e92bb.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/2857dad2e859dd791a7781d464e71d12.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/04e98fe12f8276d06f666db93fdeb2cb.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/d27c853079204309f601c3d19b0a19db.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/90db2c3f829eb7bbe9e68ad17d63d20f.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/f107ea7bc2a09ef8e8340886a0a4ce40.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/370d106359bc6d0dfe2016c361e5bf83.png">
+<meta property="article:published_time" content="2022-03-19T14:53:24.000Z">
+<meta property="article:modified_time" content="2022-03-19T14:53:24.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="学习与生活">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/f0bd31264a4123e055441e3074f98dd7.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2022/03/19/Windows_PowerShell/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2022/03/19/Windows_PowerShell/","path":"2022/03/19/Windows_PowerShell/","title":"Windows PowerShell"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows PowerShell | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-PowerShell-%E7%BE%8E%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">Windows PowerShell 美化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-oh-my-posh"><span class="nav-number">2.1.</span> <span class="nav-text">安装 oh-my-posh[1]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Nerd-Fonts-Hack"><span class="nav-number">2.2.</span> <span class="nav-text">安装 Nerd Fonts(Hack)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%97%E4%BD%93"><span class="nav-number">2.3.</span> <span class="nav-text">设置字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-posh-git"><span class="nav-number">2.4.</span> <span class="nav-text">安装 posh-git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%BE%91-PowerShell-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.5.</span> <span class="nav-text">编辑 PowerShell 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-PowerShell-%E6%89%A7%E8%A1%8C%E7%AD%96%E7%95%A5"><span class="nav-number">2.6.</span> <span class="nav-text">设置 PowerShell 执行策略[2]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83-5"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2022/03/19/Windows_PowerShell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows PowerShell<a href="https://github.dev/ql-isaac/#_posts/Windows%20PowerShell.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-19 22:53:24" itemprop="dateCreated datePublished" datetime="2022-03-19T22:53:24+08:00">2022-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Windows-PowerShell/" itemprop="url" rel="index"><span itemprop="name">Windows PowerShell</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://github.com/PowerShell/PowerShell">Powershell</a>——微软拥抱开源的又一力作。</p>
+<span id="more"></span>
+<h2 id="前言">前言</h2>
+<p>基于 .NET Framework，2006 年 11 月，Windows PowerShell 1.0 作为可选组件出现在 Windows Server 2008 上，到 2016 年 8 月，Windows PowerShell 5.1 在 Windows 10 周年更新和 Windows Server 2016 中发布，一直到现在，Windows PowerShell 仍然停留在 5.1，如下图，这是为何？</p>
+<p><img data-src="https://img.imql.life/illustrations/f0bd31264a4123e055441e3074f98dd7.png" alt="Windows_PowerShell.png"></p>
+<p>其实微软在这么长的时间里并没有闲着，就在 2018 年 1 月，基于 .NET Core 2.0 构建的开源软件 PowerShell 6.0 发布。</p>
+<p>.NET Core，即 .NET Framework 的子集，原来，微软这又是要在开源世界开辟自己的空间了。</p>
+<p>如今的 PowerShell 已来到了 7，一个跨平台的任务自动化解决方案，算是真正诞生了，不过我们今天不是要来讲 PowerShell，而是要讲 Windows PowerShell。</p>
+<h2 id="Windows-PowerShell-美化">Windows PowerShell 美化</h2>
+<p>一直以来，Windows 的图形化界面深入人心。在参加工作前，本人对其命令行界面的认识一直停留在 CMD 这个黑乎乎的窗口，而且我也几乎认为这个黑乎乎的窗口什么用也没有，工作后，发现 CMD 还是比较有用的，但是和 Linux 上的 bash 、zsh 和 fish 相比，就显得相形见绌了，至于 Windows PowerShell，我一直是将其与 CMD 画等号的。</p>
+<p>微软的又一开源软件——Windows Terminal 的出现让我重新去看待 Windows 的命令行界面，去了解和使用 Windows PowerShell。</p>
+<p>如下图，Windows Terminal 让 Windows PowerShell 看起来顺眼了一些，但仍然不够，类似于 bash 、zsh 和 fish，PowerShell 也有自己的 oh-my-xxx 项目——<a target="_blank" rel="noopener" href="https://github.com/JanDeDobbeleer/oh-my-posh">oh-my-posh</a>。</p>
+<p><img data-src="https://img.imql.life/illustrations/559cef53152f46e7df50f7da185e92bb.png" alt="Windows_Terminal.png"></p>
+<h3 id="安装-oh-my-posh">安装 oh-my-posh<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h3>
+<ol>
+<li>利用 PowerShell 命令安装：</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Install-Module</span> <span class="built_in">oh</span><span class="literal">-my-posh</span> <span class="literal">-Scope</span> CurrentUser</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>提示需要 NuGet，回车以安装并导入：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/2857dad2e859dd791a7781d464e71d12.png" alt="需要NuGet.png"></p>
+<ol start="3">
+<li>输入 Y 以确定从“PSGallery”安装模块：</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/04e98fe12f8276d06f666db93fdeb2cb.png" alt="确认.png"></p>
+<h3 id="安装-Nerd-Fonts-Hack">安装 <strong>Nerd Fonts(Hack)</strong></h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/ryanoasis/nerd-fonts/releases/">前往 Nerd Fonts 发布页面</a>，我下载的是 v2.1.0 的 Hack 字体。</p>
+<p>下载好后解压，这里有许多版本的 Hack，要选 Windows Compatible 的， 我就装个 Hack Regular Nerd Font Complete Windows Compatible 吧，直接双击安装即可。</p>
+<h3 id="设置字体">设置字体</h3>
+<p>重新进入 Windows PowerShell，找到 Windows PowerShell 的字体设置，如下图，选择 Hack NF，保存。</p>
+<p><img data-src="https://img.imql.life/illustrations/d27c853079204309f601c3d19b0a19db.png" alt="字体.png"></p>
+<h3 id="安装-posh-git">安装 posh-git</h3>
+<p>利用 PowerShell 命令安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Install-Module</span> posh<span class="literal">-git</span> <span class="literal">-Scope</span> CurrentUser</span><br></pre></td></tr></table></figure>
+<p>同样输入 Y 以确定从“PSGallery”安装模块。</p>
+<h3 id="编辑-PowerShell-配置文件">编辑 PowerShell 配置文件</h3>
+<p>记事本打开配置文件：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">notepad.exe <span class="variable">$PROFILE</span></span><br></pre></td></tr></table></figure>
+<p>还不存在此文件，选择创建：</p>
+<p><img data-src="https://img.imql.life/illustrations/90db2c3f829eb7bbe9e68ad17d63d20f.png" alt="PROFILE.png"></p>
+<p>编辑配置文件：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="addition">+Import-Module posh-git</span></span><br><span class="line"><span class="addition">+Import-Module oh-my-posh</span></span><br><span class="line"><span class="addition">+Set-PoshPrompt -Theme clean-detailed</span></span><br></pre></td></tr></table></figure>
+<div class="note info"><p>以上<code>-Theme</code>后面指定自己喜欢的主题，<a target="_blank" rel="noopener" href="https://ohmyposh.dev/docs/themes">主题列表见此</a>。</p>
+</div>
+<h3 id="设置-PowerShell-执行策略">设置 PowerShell 执行策略<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></h3>
+<p>一般此时重新进入 Windows PowerShell 就能看到已经美化好了，但是结果是：</p>
+<p><img data-src="https://img.imql.life/illustrations/f107ea7bc2a09ef8e8340886a0a4ce40.png" alt="Execution_Policies.png"></p>
+<p>以上红字提示的参阅地址中有解决办法，原来默认的执行策略为 Restricted，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/370d106359bc6d0dfe2016c361e5bf83.png" alt="Restricted.png"></p>
+<p>我们设置执行策略为 RemoteSigned：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> RemoteSigned</span><br></pre></td></tr></table></figure>
+<p>再重新进入 Windows PowerShell（一开始需要进行导入，可能有点慢），美化完成。</p>
+<h2 id="参考-5">参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jQ4y1Y7mG">2021 年打开 Powershell 的正确姿势：）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12u411Z7Zo">配置一个漂亮的 Windows Powershell (1)</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://ohmyposh.dev/docs/">在 Windows 上 安装 Oh My Posh</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-5.1">about_Execution_Policies</a> <a href="#%E8%AE%BE%E7%BD%AE-PowerShell-%E6%89%A7%E8%A1%8C%E7%AD%96%E7%95%A5-2">↩</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/01/03/JPG_PNG_and_SVG/" rel="prev" title="JPG、PNG 和 SVG">
+                  <i class="fa fa-chevron-left"></i> JPG、PNG 和 SVG
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/20/The_Installation_Guide_of_Windows_10_and_Windows_11/" rel="next" title="Windows 10&11 安装指南">
+                  Windows 10&11 安装指南 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

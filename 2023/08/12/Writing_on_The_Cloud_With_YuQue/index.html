@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="语雀云端写作实现了 Markdown 格式的博文与博客构建目录的分离，这样的话，我想同时使用多少个主题都是没有问题的了，更重要的事，可以完全实现静态博客在线编辑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语雀云端写作">
+<meta property="og:url" content="http://blog.imql.life/2023/08/12/Writing_on_The_Cloud_With_YuQue/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="语雀云端写作实现了 Markdown 格式的博文与博客构建目录的分离，这样的话，我想同时使用多少个主题都是没有问题的了，更重要的事，可以完全实现静态博客在线编辑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/ac2ddcd3949a2858339eef3443e4719d.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/90710f82bec002595dbc8594e8ccbea4.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/00a92719a9a976b6a2a985afec041d27.png">
+<meta property="article:published_time" content="2023-08-12T03:11:51.000Z">
+<meta property="article:modified_time" content="2023-10-03T05:24:06.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="elog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/ac2ddcd3949a2858339eef3443e4719d.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2023/08/12/Writing_on_The_Cloud_With_YuQue/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2023/08/12/Writing_on_The_Cloud_With_YuQue/","path":"2023/08/12/Writing_on_The_Cloud_With_YuQue/","title":"语雀云端写作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>语雀云端写作 | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%9A%E6%96%87%E8%BF%81%E7%A7%BB"><span class="nav-number">1.</span> <span class="nav-text">博文迁移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Elog"><span class="nav-number">2.</span> <span class="nav-text">安装 Elog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">本地调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5"><span class="nav-number">3.2.</span> <span class="nav-text">同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90-2"><span class="nav-number">4.</span> <span class="nav-text">持续集成</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2023/08/12/Writing_on_The_Cloud_With_YuQue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          语雀云端写作<a href="https://github.dev/ql-isaac/#_posts/%E8%AF%AD%E9%9B%80%E4%BA%91%E7%AB%AF%E5%86%99%E4%BD%9C.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-12 11:11:51" itemprop="dateCreated datePublished" datetime="2023-08-12T11:11:51+08:00">2023-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-03 13:24:06" itemprop="dateModified" datetime="2023-10-03T13:24:06+08:00">2023-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">我的博客</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>语雀云端写作实现了 Markdown 格式的博文与博客构建目录的分离，这样的话，我想同时使用多少个主题都是没有问题的了，更重要的事，可以完全实现静态博客在线编辑。</p>
+<span id="more"></span>
+<div class="note primary"><p>本文对于文件（代码）变动的描述方式为<code>-</code>指删掉该行，<code>+</code>指增加改行（如果你是直接复制此行，请注意删掉<code>+</code>和上下文对齐），<code>...</code>表示省略上下文。另外，本文对于文件（代码）变动的描述只针对当时的文件（代码）版本，请根据实际情况决定对自己的相应文件（代码）进行变动。</p>
+</div>
+<h2 id="博文迁移">博文迁移</h2>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/login?platform=wechat&amp;inviteToken=f6e959505e77f114312173f53ec62f7b8996ef80b543c7af96cf3f987a7b91e4">首先是注册语雀账号</a>，登陆上后，新建知识库，名称就为个人博客，再点击右上方的新建，选择导入，选择 Markdown 格式，将本地博文（即 _post 下的 Markdown 文件）批量（按住 Ctrl 可多选）导入至知识库个人博客。</p>
+<p>导入成功后会发现每篇博文的开头，即 front-matter 部分有点乱，可以参看下图说明更正一下。</p>
+<p><img data-src="https://img.imql.life/illustrations/ac2ddcd3949a2858339eef3443e4719d.png" alt="更正 front-matter" title="更正 front-matter"></p>
+<h2 id="安装-Elog">安装 Elog</h2>
+<p><a target="_blank" rel="noopener" href="https://github.com/LetTTGACO/elog">Elog</a>，一个开放式跨端博客解决方案，可以随意组合写作平台（语雀/Notion/FlowUs）和博客平台（Hexo/Vitepress/Confluence/WordPress）等，是本次实现语雀云端写作的关键。</p>
+<p>本着非必要不升级的原则，我使用的 Node.js 一直以来都是 v12.14.0，本次安装使用的 Elog 要求至少 14 版本的 Node.js，故而我升级 Node.js 到最新的 LTS 版本，即 18 版本。如果是 Windows，卸载原来的安装新的 Node.js 即可，如果是 Linux，推荐使用 NVM 安装。</p>
+<p>全局安装 @elog/cli：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @elog/cli</span><br></pre></td></tr></table></figure>
+<p>进入&lt;博客构建目录&gt;，执行以下命令进行初始化，会在根目录生成一份配置文件 elog.config.js 和本地调试用的环境变量文件 .elog.env。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elog init</span><br></pre></td></tr></table></figure>
+<h2 id="本地调试">本地调试</h2>
+<p>将 .elog.env 加入 .gitignore，防止密码等信息提交：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">public/</span><br><span class="line">node_modules/</span><br><span class="line">.deploy*/</span><br><span class="line"><span class="addition">+.elog.env</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置">配置</h3>
+<p>编辑 .elog.env，配置语雀认证的环境变量：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 语雀（Token方式）</span><br><span class="line">YUQUE_TOKEN=</span><br><span class="line"># 语雀（帐号密码方式）</span><br><span class="line">YUQUE_USERNAME=</span><br><span class="line">YUQUE_PASSWORD=</span><br><span class="line">YUQUE_LOGIN=</span><br><span class="line">YUQUE_REPO=</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>Token 方式和帐号密码方式二选一，现在使用 Token 需要开会员，没有会员的就使用帐号密码方式吧。YUQUE_LOGIN 和 YUQUE_REPO 的获取方式见 <a target="_blank" rel="noopener" href="https://elog.1874.cool/notion/gvnxobqogetukays#%E8%AF%AD%E9%9B%80">elog 官方文档的关键信息获取</a>。</p>
+</div>
+<p>再配置图床认证的环境变量，平台可在腾讯云、阿里云、又拍云、七牛云和 GitHub 中选择一个，详细配置方式见 <a target="_blank" rel="noopener" href="https://elog.1874.cool/notion/gvnxobqogetukays#%E5%9B%BE%E5%BA%8A">elog 官方文档的关键信息获取</a>。</p>
+<p>编辑 elog.config.js，设置写作平台为 yuque-pwd（即帐号密码方式认证的语雀）：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">write: &#123;</span><br><span class="line"><span class="deletion">-     platform: &quot;yuque&quot;</span></span><br><span class="line"><span class="addition">+    platform: &quot;yuque-pwd&quot;,</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>配置本地部署方式：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">deploy: &#123;</span><br><span class="line">    platform: &quot;local&quot;,</span><br><span class="line">    local: &#123;</span><br><span class="line"><span class="deletion">-      outputDir: &quot;./docs&quot;,</span></span><br><span class="line"><span class="addition">+      outputDir: &quot;source/_posts&quot;,</span></span><br><span class="line">      filename: &quot;title&quot;,</span><br><span class="line"><span class="deletion">-      format: &quot;markdown&quot;,</span></span><br><span class="line"><span class="addition">+      format: &quot;matter-markdown&quot;,</span></span><br><span class="line">      catalog: false,</span><br><span class="line">      formatExt: &quot;&quot;,</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>开启图床，设置图床平台为腾讯云、阿里云、又拍云、七牛云或 GitHub：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">image: &#123;</span><br><span class="line"><span class="deletion">-    enable: false,</span></span><br><span class="line"><span class="addition">+    enable: true</span></span><br><span class="line"><span class="deletion">-    platform: &quot;local&quot;,</span></span><br><span class="line"><span class="addition">+    platform: &quot;&lt;图床平台&gt;&quot;,</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>最后配置图床，配置方式见 <a target="_blank" rel="noopener" href="https://elog.1874.cool/notion/fe8ywmt999gon12w#%E5%9B%BE%E5%BA%8A%E5%B9%B3%E5%8F%B0">elog 官方文档的配置详情</a>。</p>
+<h3 id="同步">同步</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elog <span class="built_in">sync</span> -e .elog.env</span><br></pre></td></tr></table></figure>
+<p>如果日志显示同步成功，本地调试即成功。</p>
+<h2 id="持续集成-2">持续集成</h2>
+<p>本地安装 @elog/cli：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @elog/cli</span><br></pre></td></tr></table></figure>
+<p>为了防止 hexo 在生成博客源文件时报错，新建目录 cache，将 elog.cache.json 移动过去。</p>
+<p>编辑 package.json，新建一个 NPM 命令用于同步：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;build&quot;: &quot;hexo generate&quot;,</span><br><span class="line">    &quot;clean&quot;: &quot;hexo clean&quot;,</span><br><span class="line">    &quot;deploy&quot;: &quot;hexo deploy&quot;,</span><br><span class="line">    &quot;server&quot;: &quot;hexo server&quot;,</span><br><span class="line"><span class="addition">+    &quot;sync&quot;: &quot;elog sync -a cache/elog.cache.json&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>前往博客构建仓库添加密钥，如下图，添加 YUQUE_TOKEN(YUQUE_USERNAME、YUQUE_PASSWORD)、YUQUE_LOGIN、YUQUE_REPO 的值，再添加图床的密钥，如使用腾讯云作为图床平台，需添加 COS_SECRET_ID、COS_SECRET_KEY、COS_BUCKET、COS_REGION 和 COS_HOST 的值。</p>
+<p><img data-src="https://img.imql.life/illustrations/90710f82bec002595dbc8594e8ccbea4.png" alt="添加密钥" title="添加密钥"></p>
+<p>编辑 GitHub Actions 工作流：</p>
+<div class="tabs" id="hexo-build"><ul class="nav-tabs"><li class="tab active"><a href="#hexo-build-1">注释版</a></li><li class="tab"><a href="#hexo-build-2">清洁版</a></li></ul><div class="tab-content"><div class="tab-pane active" id="hexo-build-1"><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">name: hexo-build</span><br><span class="line"># 仓库main分支有推送时执行jobs下定义的任务</span><br><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line">      - main</span><br><span class="line"># 设置时区为上海</span><br><span class="line">env:</span><br><span class="line">  TZ: Asia/Shanghai</span><br><span class="line">jobs:</span><br><span class="line">  # 定义名为blog-build的任务</span><br><span class="line">  blog-build:</span><br><span class="line">    # 定义运行的操作系统</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    # 定义步骤</span><br><span class="line">    steps:</span><br><span class="line">      # 签出仓库的默认分支，此处即为main，同时迁出子项目，此处即为主题仓库</span><br><span class="line">      - name: Checkout</span><br><span class="line">        uses: actions/checkout@v3</span><br><span class="line">        with:</span><br><span class="line">          submodules: true</span><br><span class="line">       # 安装别名为lts/Hydrogen的Node.js，即18版本，同时进行全局缓存</span><br><span class="line"><span class="deletion">-      - name: Install Node.js v12.14.0</span></span><br><span class="line"><span class="addition">+      - name: Install Node.js lts/Hydrogen</span></span><br><span class="line">        uses: actions/setup-node@v3</span><br><span class="line">        with:</span><br><span class="line"><span class="deletion">-          node-version: &quot;12.14.0&quot;</span></span><br><span class="line"><span class="addition">+          node-version: &quot;lts/Hydrogen&quot;</span></span><br><span class="line">          cache: &quot;npm&quot;</span><br><span class="line">      # 缓存文件夹node_modules并生成唯一码</span><br><span class="line">      - name: Cache dependencies</span><br><span class="line">        uses: actions/cache@v3</span><br><span class="line">        id: cache-dependencies</span><br><span class="line">        with:</span><br><span class="line">          path: node_modules</span><br><span class="line">          key: $&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span><br><span class="line">      # 如果唯一码比对不成功，重新安装依赖，成功则沿用缓存</span><br><span class="line">      - name: Install dependencies</span><br><span class="line">        if: steps.cache-dependencies.outputs.cache-hit != &#x27;true&#x27;</span><br><span class="line">        run: npm ci</span><br><span class="line"><span class="addition">+      - name: Pull posts from Yuque</span></span><br><span class="line"><span class="addition">+        env:</span></span><br><span class="line"><span class="addition">+          YUQUE_TOKEN: $&#123;&#123; secrets.YUQUE_TOKEN &#125;&#125;</span></span><br><span class="line"><span class="addition">+          YUQUE_LOGIN: $&#123;&#123; secrets.YUQUE_LOGIN &#125;&#125;</span></span><br><span class="line"><span class="addition">+          YUQUE_REPO: $&#123;&#123; secrets.YUQUE_REPO &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_SECRET_ID: $&#123;&#123; secrets.COS_SECRET_ID &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_SECRET_KEY: $&#123;&#123; secrets.COS_SECRET_KEY &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_BUCKET: $&#123;&#123; secrets.COS_BUCKET &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_REGION: $&#123;&#123; secrets.COS_REGION &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_HOST: $&#123;&#123; secrets.COS_HOST &#125;&#125;</span></span><br><span class="line"><span class="addition">+        run: |</span></span><br><span class="line"><span class="addition">+          # elog.cache.json被指定在子目录cache下，但是elog并不会自动创建它，需要先创建</span></span><br><span class="line"><span class="addition">+          mkdir cache</span></span><br><span class="line"><span class="addition">+          npm run sync</span></span><br><span class="line">      - name: Setup private rsa key</span><br><span class="line">        env:</span><br><span class="line">          DEPLOY_KEY: $&#123;&#123;secrets.DEPLOY_KEY&#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line">          mkdir -p ~/.ssh/</span><br><span class="line">          echo &quot;$DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa</span><br><span class="line">          chmod 600 ~/.ssh/id_rsa</span><br><span class="line">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">          ssh-keyscan gitee.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: |</span><br><span class="line">          git config --global user.name &quot;$&#123;&#123;secrets.GIT_NAME&#125;&#125;&quot;</span><br><span class="line">          git config --global user.email &quot;$&#123;&#123;secrets.GIT_EMAIL&#125;&#125;&quot;</span><br><span class="line">          npm run build &amp;&amp; npm run deploy</span><br><span class="line"><span class="addition">+      - name: Upload Cache for next workflow to use</span></span><br><span class="line"><span class="addition">+        uses: actions/upload-artifact@v3</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          name: &quot;Cache&quot;</span></span><br><span class="line"><span class="addition">+          path: cache</span></span><br><span class="line"><span class="addition">+          retention-days: 90</span></span><br><span class="line"><span class="addition">+      - name: Upload Posts for next workflow to use</span></span><br><span class="line"><span class="addition">+        uses: actions/upload-artifact@v3</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          name: &quot;Posts&quot;</span></span><br><span class="line"><span class="addition">+          path: &quot;source/_posts&quot;</span></span><br><span class="line"><span class="addition">+          retention-days: 90</span></span><br></pre></td></tr></table></figure></div><div class="tab-pane" id="hexo-build-2"><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">name: hexo-build</span><br><span class="line">on:</span><br><span class="line">  push:</span><br><span class="line">    branches:</span><br><span class="line">      - main</span><br><span class="line">env:</span><br><span class="line">  TZ: Asia/Shanghai</span><br><span class="line">jobs:</span><br><span class="line">  blog-build:</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    steps:</span><br><span class="line">      - name: Checkout</span><br><span class="line">        uses: actions/checkout@v3</span><br><span class="line">        with:</span><br><span class="line">          submodules: true</span><br><span class="line"><span class="deletion">-      - name: Install Node.js v12.14.0</span></span><br><span class="line"><span class="addition">+      - name: Install Node.js lts/Hydrogen</span></span><br><span class="line">        uses: actions/setup-node@v3</span><br><span class="line">        with:</span><br><span class="line"><span class="deletion">-          node-version: &quot;12.14.0&quot;</span></span><br><span class="line"><span class="addition">+          node-version: &quot;lts/Hydrogen&quot;</span></span><br><span class="line">          cache: &quot;npm&quot;</span><br><span class="line">      - name: Cache dependencies</span><br><span class="line">        uses: actions/cache@v3</span><br><span class="line">        id: cache-dependencies</span><br><span class="line">        with:</span><br><span class="line">          path: node_modules</span><br><span class="line">          key: $&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span><br><span class="line">      - name: Install dependencies</span><br><span class="line">        if: steps.cache-dependencies.outputs.cache-hit != &#x27;true&#x27;</span><br><span class="line">        run: npm ci</span><br><span class="line"><span class="addition">+      - name: Pull posts from Yuque</span></span><br><span class="line"><span class="addition">+        env:</span></span><br><span class="line"><span class="addition">+          YUQUE_TOKEN: $&#123;&#123; secrets.YUQUE_TOKEN &#125;&#125;</span></span><br><span class="line"><span class="addition">+          YUQUE_LOGIN: $&#123;&#123; secrets.YUQUE_LOGIN &#125;&#125;</span></span><br><span class="line"><span class="addition">+          YUQUE_REPO: $&#123;&#123; secrets.YUQUE_REPO &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_SECRET_ID: $&#123;&#123; secrets.COS_SECRET_ID &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_SECRET_KEY: $&#123;&#123; secrets.COS_SECRET_KEY &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_BUCKET: $&#123;&#123; secrets.COS_BUCKET &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_REGION: $&#123;&#123; secrets.COS_REGION &#125;&#125;</span></span><br><span class="line"><span class="addition">+          COS_HOST: $&#123;&#123; secrets.COS_HOST &#125;&#125;</span></span><br><span class="line"><span class="addition">+        run: |</span></span><br><span class="line"><span class="addition">+          mkdir cache</span></span><br><span class="line"><span class="addition">+          npm run sync</span></span><br><span class="line">      - name: Setup private rsa key</span><br><span class="line">        env:</span><br><span class="line">          DEPLOY_KEY: $&#123;&#123;secrets.DEPLOY_KEY&#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line">          mkdir -p ~/.ssh/</span><br><span class="line">          echo &quot;$DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa</span><br><span class="line">          chmod 600 ~/.ssh/id_rsa</span><br><span class="line">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">          ssh-keyscan gitee.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: |</span><br><span class="line">          git config --global user.name &quot;$&#123;&#123;secrets.GIT_NAME&#125;&#125;&quot;</span><br><span class="line">          git config --global user.email &quot;$&#123;&#123;secrets.GIT_EMAIL&#125;&#125;&quot;</span><br><span class="line">          npm run build &amp;&amp; npm run deploy</span><br><span class="line"><span class="addition">+      - name: Upload Cache for next workflow to use</span></span><br><span class="line"><span class="addition">+        uses: actions/upload-artifact@v3</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          name: &quot;Cache&quot;</span></span><br><span class="line"><span class="addition">+          path: cache</span></span><br><span class="line"><span class="addition">+          retention-days: 90</span></span><br><span class="line"><span class="addition">+      - name: Upload Posts for next workflow to use</span></span><br><span class="line"><span class="addition">+        uses: actions/upload-artifact@v3</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          name: &quot;Posts&quot;</span></span><br><span class="line"><span class="addition">+          path: &quot;source/_posts&quot;</span></span><br><span class="line"><span class="addition">+          retention-days: 90</span></span><br></pre></td></tr></table></figure></div></div></div>
+<p>提交并推送：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;:green_heart: 使用elog实现语雀云端写作&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>再次编辑 GitHub Actions 工作流：</p>
+<div class="tabs" id="hexo-build"><ul class="nav-tabs"><li class="tab active"><a href="#hexo-build-1">注释版</a></li><li class="tab"><a href="#hexo-build-2">清洁版</a></li></ul><div class="tab-content"><div class="tab-pane active" id="hexo-build-1"><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">name: hexo-build</span><br><span class="line">on:</span><br><span class="line"># 将执行jobs下定义的任务的充分条件改为有类型为publish的外部事件触发</span><br><span class="line"><span class="deletion">-  push:</span></span><br><span class="line"><span class="deletion">-    branches:</span></span><br><span class="line"><span class="deletion">-      - main</span></span><br><span class="line"><span class="addition">+  repository_dispatch:</span></span><br><span class="line"><span class="addition">+    types:</span></span><br><span class="line"><span class="addition">+      - publish</span></span><br><span class="line"># 设置时区为上海</span><br><span class="line">env:</span><br><span class="line">  TZ: Asia/Shanghai</span><br><span class="line">jobs:</span><br><span class="line">  # 定义名为blog-build的任务</span><br><span class="line">  www-build:</span><br><span class="line">    # 定义运行的操作系统</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    # 定义步骤</span><br><span class="line">    steps:</span><br><span class="line">      # 签出仓库的默认分支，此处即为main，同时迁出子项目，此处即为主题仓库</span><br><span class="line">      - name: Checkout</span><br><span class="line">        uses: actions/checkout@v3</span><br><span class="line">        with:</span><br><span class="line">          submodules: true</span><br><span class="line">      # 安装别名为lts/Hydrogen的Node.js，即18版本，同时进行全局缓存</span><br><span class="line">      - name: Install Node.js lts/Hydrogen</span><br><span class="line">        uses: actions/setup-node@v3</span><br><span class="line">        with:</span><br><span class="line">          node-version: &quot;lts/Hydrogen&quot;</span><br><span class="line">          cache: &quot;npm&quot;</span><br><span class="line">      # 缓存文件夹node_modules并生成唯一码</span><br><span class="line">      - name: Cache dependencies</span><br><span class="line">        uses: actions/cache@v3</span><br><span class="line">        id: cache-dependencies</span><br><span class="line">        with:</span><br><span class="line">          path: node_modules</span><br><span class="line">          key: $&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span><br><span class="line">      # 如果唯一码比对不成功，重新安装依赖，成功则沿用缓存</span><br><span class="line">      - name: Install dependencies</span><br><span class="line">        if: steps.cache-dependencies.outputs.cache-hit != &#x27;true&#x27;</span><br><span class="line">        run: npm ci</span><br><span class="line"><span class="addition">+      - name: Download Posts from the last workflow</span></span><br><span class="line"><span class="addition">+        uses: dawidd6/action-download-artifact@v2</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          github_token: $&#123;&#123;secrets.GITHUB_TOKEN&#125;&#125;</span></span><br><span class="line"><span class="addition">+          name: &quot;Posts&quot;</span></span><br><span class="line"><span class="addition">+          path: &quot;source/_posts&quot;</span></span><br><span class="line"><span class="addition">+      - name: Download Cache from the last workflow</span></span><br><span class="line"><span class="addition">+        uses: dawidd6/action-download-artifact@v2</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          github_token: $&#123;&#123;secrets.GITHUB_TOKEN&#125;&#125;</span></span><br><span class="line"><span class="addition">+          name: &quot;Cache&quot;</span></span><br><span class="line"><span class="addition">+          path: &quot;cache&quot;</span></span><br><span class="line">      - name: Pull posts from Yuque</span><br><span class="line">        env:</span><br><span class="line">          YUQUE_TOKEN: $&#123;&#123; secrets.YUQUE_TOKEN &#125;&#125;</span><br><span class="line">          YUQUE_LOGIN: $&#123;&#123; secrets.YUQUE_LOGIN &#125;&#125;</span><br><span class="line">          YUQUE_REPO: $&#123;&#123; secrets.YUQUE_REPO &#125;&#125;</span><br><span class="line">          COS_SECRET_ID: $&#123;&#123; secrets.COS_SECRET_ID &#125;&#125;</span><br><span class="line">          COS_SECRET_KEY: $&#123;&#123; secrets.COS_SECRET_KEY &#125;&#125;</span><br><span class="line">          COS_BUCKET: $&#123;&#123; secrets.COS_BUCKET &#125;&#125;</span><br><span class="line">          COS_REGION: $&#123;&#123; secrets.COS_REGION &#125;&#125;</span><br><span class="line">          COS_HOST: $&#123;&#123; secrets.COS_HOST &#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line"><span class="deletion">-          mkdir cache #从上一次工作流中下载了缓存，子目录cache已存在，此时无需再次创建</span></span><br><span class="line">          npm run sync</span><br><span class="line">      - name: Setup private rsa key</span><br><span class="line">        env:</span><br><span class="line">          DEPLOY_KEY: $&#123;&#123;secrets.DEPLOY_KEY&#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line">          mkdir -p ~/.ssh/</span><br><span class="line">          echo &quot;$DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa</span><br><span class="line">          chmod 600 ~/.ssh/id_rsa</span><br><span class="line">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">          ssh-keyscan gitee.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: |</span><br><span class="line">          git config --global user.name &quot;$&#123;&#123;secrets.GIT_NAME&#125;&#125;&quot;</span><br><span class="line">          git config --global user.email &quot;$&#123;&#123;secrets.GIT_EMAIL&#125;&#125;&quot;</span><br><span class="line">          npm run build &amp;&amp; npm run deploy</span><br><span class="line">      - name: Upload Cache for next workflow to use</span><br><span class="line">        uses: actions/upload-artifact@v3</span><br><span class="line">        with:</span><br><span class="line">          name: &quot;Cache&quot;</span><br><span class="line">          path: cache</span><br><span class="line">          retention-days: 90</span><br><span class="line">      - name: Upload Posts for next workflow to use</span><br><span class="line">        uses: actions/upload-artifact@v3</span><br><span class="line">        with:</span><br><span class="line">          name: &quot;Posts&quot;</span><br><span class="line">          path: &quot;source/_posts&quot;</span><br><span class="line">          retention-days: 90</span><br><span class="line"></span><br></pre></td></tr></table></figure></div><div class="tab-pane" id="hexo-build-2"><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">name: hexo-build</span><br><span class="line">on:</span><br><span class="line"><span class="deletion">-  push:</span></span><br><span class="line"><span class="deletion">-    branches:</span></span><br><span class="line"><span class="deletion">-      - main</span></span><br><span class="line"><span class="addition">+  repository_dispatch:</span></span><br><span class="line"><span class="addition">+    types:</span></span><br><span class="line"><span class="addition">+      - publish</span></span><br><span class="line">env:</span><br><span class="line">  TZ: Asia/Shanghai</span><br><span class="line">jobs:</span><br><span class="line">  www-build:</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    steps:</span><br><span class="line">      - name: Checkout</span><br><span class="line">        uses: actions/checkout@v3</span><br><span class="line">        with:</span><br><span class="line">          submodules: true</span><br><span class="line">      - name: Install Node.js lts/Hydrogen</span><br><span class="line">        uses: actions/setup-node@v3</span><br><span class="line">        with:</span><br><span class="line">          node-version: &quot;lts/Hydrogen&quot;</span><br><span class="line">          cache: &quot;npm&quot;</span><br><span class="line">      - name: Cache dependencies</span><br><span class="line">        uses: actions/cache@v3</span><br><span class="line">        id: cache-dependencies</span><br><span class="line">        with:</span><br><span class="line">          path: node_modules</span><br><span class="line">          key: $&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span><br><span class="line">      - name: Install dependencies</span><br><span class="line">        if: steps.cache-dependencies.outputs.cache-hit != &#x27;true&#x27;</span><br><span class="line">        run: npm ci</span><br><span class="line"><span class="addition">+      - name: Download Posts from the last workflow</span></span><br><span class="line"><span class="addition">+        uses: dawidd6/action-download-artifact@v2</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          github_token: $&#123;&#123;secrets.GITHUB_TOKEN&#125;&#125;</span></span><br><span class="line"><span class="addition">+          name: &quot;Posts&quot;</span></span><br><span class="line"><span class="addition">+          path: &quot;source/_posts&quot;</span></span><br><span class="line"><span class="addition">+      - name: Download Cache from the last workflow</span></span><br><span class="line"><span class="addition">+        uses: dawidd6/action-download-artifact@v2</span></span><br><span class="line"><span class="addition">+        with:</span></span><br><span class="line"><span class="addition">+          github_token: $&#123;&#123;secrets.GITHUB_TOKEN&#125;&#125;</span></span><br><span class="line"><span class="addition">+          name: &quot;Cache&quot;</span></span><br><span class="line"><span class="addition">+          path: &quot;cache&quot;</span></span><br><span class="line">      - name: Pull posts from Yuque</span><br><span class="line">        env:</span><br><span class="line">          YUQUE_TOKEN: $&#123;&#123; secrets.YUQUE_TOKEN &#125;&#125;</span><br><span class="line">          YUQUE_LOGIN: $&#123;&#123; secrets.YUQUE_LOGIN &#125;&#125;</span><br><span class="line">          YUQUE_REPO: $&#123;&#123; secrets.YUQUE_REPO &#125;&#125;</span><br><span class="line">          COS_SECRET_ID: $&#123;&#123; secrets.COS_SECRET_ID &#125;&#125;</span><br><span class="line">          COS_SECRET_KEY: $&#123;&#123; secrets.COS_SECRET_KEY &#125;&#125;</span><br><span class="line">          COS_BUCKET: $&#123;&#123; secrets.COS_BUCKET &#125;&#125;</span><br><span class="line">          COS_REGION: $&#123;&#123; secrets.COS_REGION &#125;&#125;</span><br><span class="line">          COS_HOST: $&#123;&#123; secrets.COS_HOST &#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line"><span class="deletion">-          mkdir cache</span></span><br><span class="line">          npm run sync</span><br><span class="line">      - name: Setup private rsa key</span><br><span class="line">        env:</span><br><span class="line">          DEPLOY_KEY: $&#123;&#123;secrets.DEPLOY_KEY&#125;&#125;</span><br><span class="line">        run: |</span><br><span class="line">          mkdir -p ~/.ssh/</span><br><span class="line">          echo &quot;$DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa</span><br><span class="line">          chmod 600 ~/.ssh/id_rsa</span><br><span class="line">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">          ssh-keyscan gitee.com &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line">      - name: Deploy</span><br><span class="line">        run: |</span><br><span class="line">          git config --global user.name &quot;$&#123;&#123;secrets.GIT_NAME&#125;&#125;&quot;</span><br><span class="line">          git config --global user.email &quot;$&#123;&#123;secrets.GIT_EMAIL&#125;&#125;&quot;</span><br><span class="line">          npm run build &amp;&amp; npm run deploy</span><br><span class="line">      - name: Upload Cache for next workflow to use</span><br><span class="line">        uses: actions/upload-artifact@v3</span><br><span class="line">        with:</span><br><span class="line">          name: &quot;Cache&quot;</span><br><span class="line">          path: cache</span><br><span class="line">          retention-days: 90</span><br><span class="line">      - name: Upload Posts for next workflow to use</span><br><span class="line">        uses: actions/upload-artifact@v3</span><br><span class="line">        with:</span><br><span class="line">          name: &quot;Posts&quot;</span><br><span class="line">          path: &quot;source/_posts&quot;</span><br><span class="line">          retention-days: 90</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></div></div>
+<p>将 source 下 _posts 和 cache 下的 elog.cache.json 加入 .gitignore 并删除掉，这两个地方的文件已经不需要。</p>
+<p>最终提交并推送：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;:green_heart: 使用elog实现语雀云端写作（终）&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>这样，在语雀上写好博文并更新，只需要地址栏输入以下地址（外部事件触发 API），即可触发持续集成，实现云端写作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://serverless-api-elog.vercel.app/api/github?user=&lt;自己GitHub用户名&gt;&amp;repo=&lt;博客构建仓库名&gt;&amp;event_type=publish&amp;token=&lt;自己生成的Token&gt;</span><br></pre></td></tr></table></figure>
+<div class="note success"><p>生成 Token 的方式（勾选 repo 的权限）：</p>
+<p><img data-src="https://img.imql.life/illustrations/00a92719a9a976b6a2a985afec041d27.png" alt="image.png"></p>
+</div>
+<p>以上 API 是 elog 官方在 Vercel 上搭建的，使用的 Vercel 默认域名，会经常被墙，我们可以自己搭建一个并且使用上自己的域名（未备案也行，因为 Vercel 是国外服务）。</p>
+<p>fork <a target="_blank" rel="noopener" href="https://github.com/LetTTGACO/serverless-api">serverless-api</a>，<a target="_blank" rel="noopener" href="https://vercel.com/dashboard">登录 Vercel</a>，新建，导入刚刚 fork 的项目，部署。到域名设置那里，添加自己的域名，如 publish.xxx.xx，再到域名供应商那里添加一下 cname 解析，最后回到域名设置那里，确认解析生效，这样，将以上地址中域名替换为自己的域名得到自己的 API。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/elog/" rel="tag"><i class="fa fa-tag"></i> elog</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/16/Play_with_My_Blog/" rel="prev" title="玩转我的博客">
+                  <i class="fa fa-chevron-left"></i> 玩转我的博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

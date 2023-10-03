@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="还不会安装 Linux？快点进来！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 11 和 Arch Linux 双系统">
+<meta property="og:url" content="http://blog.imql.life/2022/04/30/Dual_Booting_Windows_11_and_Arch_Linux/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="还不会安装 Linux？快点进来！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/5f9604e4d1e2035a5ff78a3b85b87788.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/2fd0e04e9af29291bffdcec0dbbbf57b.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/2412b18d9fa8a94c497d32e2d2a0b562.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/93b5e0f1e7a6bfb5b9c7a80b05843346.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/150747027b71d50cdd6271273704fc96.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/3bfe20f3ff7d2cf9156a866c1d59c458.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/384e65272ef67709711fbee3f123d5a4.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/2d008cc243095a670e9c25fc1852ba9c.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/119c382b48d2688c2e433a78f738544b.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/cf5f129c57f279989af4cdcf2493bae9.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/84c7248e37454fc1007dd0464c9065e0.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/08c27c0c494c4894355239b5da75681f.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/63c1deb6f5662f20344d876d87f6b5af.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/e1f73ba8c4128cd7cfc1dd59d3a9b28c.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/00373ee1d29601e5854597831f847992.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/14d974905b3339cceb70866cadac1ff7.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/b6c9b499166502f5ab2733698115dd6d.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/9ed9aa73446cc14d3e785c38a4f71718.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/f92cad978180676abcad444479c50ed3.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/3010e38e90ec4f52cd43ee26ea34a994.png">
+<meta property="article:published_time" content="2022-04-30T13:51:00.000Z">
+<meta property="article:modified_time" content="2022-04-30T13:51:00.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Arch Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/5f9604e4d1e2035a5ff78a3b85b87788.png">
+
+
+<link rel="canonical" href="http://blog.imql.life/2022/04/30/Dual_Booting_Windows_11_and_Arch_Linux/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2022/04/30/Dual_Booting_Windows_11_and_Arch_Linux/","path":"2022/04/30/Dual_Booting_Windows_11_and_Arch_Linux/","title":"Windows 11 和 Arch Linux 双系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows 11 和 Arch Linux 双系统 | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F-3"><span class="nav-number">1.</span> <span class="nav-text">下载系统镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">磁盘管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E5%90%AF%E5%8A%A8%E7%9B%98"><span class="nav-number">3.</span> <span class="nav-text">制作启动盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A6%81%E7%94%A8%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8%E5%92%8C%E4%BC%91%E7%9C%A0"><span class="nav-number">4.</span> <span class="nav-text">禁用快速启动和休眠[1]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E8%A1%A8%E7%A4%BA%E6%A0%87%E5%87%86%E7%BB%9F%E4%B8%80"><span class="nav-number">5.</span> <span class="nav-text">时间表示标准统一[2]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIOS-%E8%AE%BE%E7%BD%AE%E7%A1%AE%E8%AE%A4"><span class="nav-number">6.</span> <span class="nav-text">BIOS 设置确认</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-U-%E7%9B%98%E5%90%AF%E5%8A%A8"><span class="nav-number">7.</span> <span class="nav-text">从 U 盘启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%BC%95%E5%AF%BC%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">验证引导模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%97%A0%E7%BA%BF%E7%BD%91"><span class="nav-number">9.</span> <span class="nav-text">连接无线网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="nav-number">10.</span> <span class="nav-text">更新系统时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA"><span class="nav-number">11.</span> <span class="nav-text">建立硬盘分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%88%86%E5%8C%BA"><span class="nav-number">12.</span> <span class="nav-text">格式化分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="nav-number">13.</span> <span class="nav-text">挂载分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%95%9C%E5%83%8F"><span class="nav-number">14.</span> <span class="nav-text">配置镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%BF%85%E9%9C%80%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">15.</span> <span class="nav-text">安装必需软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F"><span class="nav-number">16.</span> <span class="nav-text">配置系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fstab"><span class="nav-number">16.1.</span> <span class="nav-text">fstab</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%8C%BA"><span class="nav-number">16.2.</span> <span class="nav-text">时区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96"><span class="nav-number">16.3.</span> <span class="nav-text">本地化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">16.4.</span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Root-%E5%AF%86%E7%A0%81"><span class="nav-number">16.5.</span> <span class="nav-text">Root 密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9F%BA%E6%9C%AC%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">16.6.</span> <span class="nav-text">安装基本软件包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%90%AF"><span class="nav-number">17.</span> <span class="nav-text">重启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%85%A5%E6%96%B0%E7%B3%BB%E7%BB%9F"><span class="nav-number">18.</span> <span class="nav-text">登入新系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%97%A0%E7%BA%BF%E7%BD%91-2"><span class="nav-number">18.1.</span> <span class="nav-text">连接无线网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83"><span class="nav-number">18.2.</span> <span class="nav-text">创建个人用户并授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8"><span class="nav-number">18.3.</span> <span class="nav-text">安装显卡驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Display-Server"><span class="nav-number">18.4.</span> <span class="nav-text">安装 Display Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Display-Manager"><span class="nav-number">18.5.</span> <span class="nav-text">安装 Display Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Desktop-Environment"><span class="nav-number">18.6.</span> <span class="nav-text">安装 Desktop Environment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF-2"><span class="nav-number">18.7.</span> <span class="nav-text">重启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AD%97%E4%BD%93"><span class="nav-number">18.8.</span> <span class="nav-text">安装字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80"><span class="nav-number">18.9.</span> <span class="nav-text">系统语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-archlinuxcn-%E6%BA%90"><span class="nav-number">18.10.</span> <span class="nav-text">添加 archlinuxcn 源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-yay"><span class="nav-number">18.11.</span> <span class="nav-text">安装 yay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BE%93%E5%85%A5%E6%B3%95"><span class="nav-number">18.12.</span> <span class="nav-text">安装输入法[3]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Timeshift"><span class="nav-number">18.13.</span> <span class="nav-text">安装 Timeshift</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-fish"><span class="nav-number">18.14.</span> <span class="nav-text">安装 fish</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%81%E7%94%A8%E4%BC%91%E7%9C%A0"><span class="nav-number">18.15.</span> <span class="nav-text">禁用休眠[4]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%81%AB%E7%8B%90%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-number">18.16.</span> <span class="nav-text">安装火狐浏览器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BE%8E%E5%8C%96%E5%90%AF%E5%8A%A8%E9%A1%B9%E9%80%89%E6%8B%A9%E7%95%8C%E9%9D%A2"><span class="nav-number">19.</span> <span class="nav-text">美化启动项选择界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83-4"><span class="nav-number">20.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2022/04/30/Dual_Booting_Windows_11_and_Arch_Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows 11 和 Arch Linux 双系统<a href="https://github.dev/ql-isaac/#_posts/Windows%2011%20%E5%92%8C%20Arch%20Linux%20%E5%8F%8C%E7%B3%BB%E7%BB%9F.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-30 21:51:00" itemprop="dateCreated datePublished" datetime="2022-04-30T21:51:00+08:00">2022-04-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/PC/" itemprop="url" rel="index"><span itemprop="name">PC</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>还不会安装 Linux？快点进来！</p>
+<span id="more"></span>
+<h2 id="下载系统镜像-3">下载系统镜像</h2>
+<p><a target="_blank" rel="noopener" href="https://archlinux.org/download/">前往官方下载地址</a>，我使用的 HTTP 下载：</p>
+<p><img data-src="https://img.imql.life/illustrations/5f9604e4d1e2035a5ff78a3b85b87788.png" alt="HTTP下载.png"></p>
+<h2 id="磁盘管理">磁盘管理</h2>
+<p>使用 Windows 的磁盘管理从 D 盘分 170GB 空闲空间出来，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/2fd0e04e9af29291bffdcec0dbbbf57b.png" alt="170GB.png"></p>
+<h2 id="制作启动盘">制作启动盘</h2>
+<p>空 U 盘插入电脑，如下图，使用 <a target="_blank" rel="noopener" href="https://rufus.ie/">Rufus</a> 制作，注意分区类型为 GPT 而非默认的 MBR，写入方式为推荐的 ISO。</p>
+<p><img data-src="https://img.imql.life/illustrations/2412b18d9fa8a94c497d32e2d2a0b562.png" alt="制作.png"></p>
+<p><img data-src="https://img.imql.life/illustrations/93b5e0f1e7a6bfb5b9c7a80b05843346.png" alt="以ISO镜像模式写入.png"></p>
+<h2 id="禁用快速启动和休眠">禁用快速启动和休眠<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h2>
+<p><img data-src="https://img.imql.life/illustrations/150747027b71d50cdd6271273704fc96.png" alt="禁用快速启动和休眠.png"></p>
+<h2 id="时间表示标准统一">时间表示标准统一<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></h2>
+<p>Windows 默认使用的时间表示标准为 localtime，Arch Linux 默认为 UTC。在此修改 Windows 的为 UTC 以保持统一，Windows 11 中执行如下命令。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add <span class="string">&quot;HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation&quot;</span> /v RealTimeIsUniversal /d <span class="number">1</span> /t REG_DWORD /f</span><br></pre></td></tr></table></figure>
+<p>重新启动 Windows 11 生效。</p>
+<h2 id="BIOS-设置确认">BIOS 设置确认</h2>
+<p>启动盘插入电脑，重启电脑，同时不停按 F2 进入 BIOS，确认以下几点：</p>
+<ul>
+<li>引导模式为 UEFI；</li>
+<li>禁用 Secure Boot；</li>
+<li>如果硬盘是 NVMe 的，硬盘的启动方式需为 AHCI。</li>
+</ul>
+<h2 id="从-U-盘启动">从 U 盘启动</h2>
+<p>F10 保存退出 BIOS 后不停按 F12 进入启动项选择界面，键盘上下键选择带“EFI”“USB”字样的，一般是第二个，等待。</p>
+<p>下面就可以正式开始安装 Arch Linux：</p>
+<p><img data-src="https://img.imql.life/illustrations/3bfe20f3ff7d2cf9156a866c1d59c458.png" alt="正式开始安装.png"></p>
+<h2 id="验证引导模式">验证引导模式</h2>
+<p>要验证引导模式，执行下列命令列出 efivars 目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> /sys/firmware/efi/efivars</span><br></pre></td></tr></table></figure>
+<p>如果命令结果显示了目录且没有报告错误，则系统以 UEFI 模式引导。</p>
+<h2 id="连接无线网">连接无线网</h2>
+<p>进入交互式提示符（interactive prompt）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwctl</span><br></pre></td></tr></table></figure>
+<p>列出所有 WiFi 设备：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">device list</span><br></pre></td></tr></table></figure>
+<p>我的网卡名字为 wlan0，扫描：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">station wlan0 scan</span><br></pre></td></tr></table></figure>
+<p>列出所有可用的网络：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">station wlan0 get-networks</span><br></pre></td></tr></table></figure>
+<p>连接到一个网络：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">station wlan0 connect &lt;Network name&gt;</span><br></pre></td></tr></table></figure>
+<p>输入密码后回车，没有提示的话就是连接成功了，可执行下列命令查看连接状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">station wlan0 show</span><br></pre></td></tr></table></figure>
+<p>退出交互式提示符：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<h2 id="更新系统时间">更新系统时间</h2>
+<p>使用 timedatectl 确保系统时间是准确的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-ntp <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="建立硬盘分区">建立硬盘分区</h2>
+<p>查看分区情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<p>我的硬盘名字为 nvme0n1，使用 cfdisk 进行管理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cfdisk /dev/nvme0n1</span><br></pre></td></tr></table></figure>
+<p>找到以上分出来的 170GB 的空闲空间，选择 New，首先是给根分区分配 32GB，再选择剩下的 138GB，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/384e65272ef67709711fbee3f123d5a4.png" alt="剩下的138GB.png"></p>
+<p>选择 New，给交换分区分配 3GB，选择 Type，设定分区类型为 Linux swap，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/2d008cc243095a670e9c25fc1852ba9c.png" alt="Linux_swap.png"></p>
+<p>选择剩下的 135GB，选择 New，给家分区分配剩下的空间，选择 Type，设定分区类型为 Linux home，如下图。</p>
+<p><img data-src="https://img.imql.life/illustrations/119c382b48d2688c2e433a78f738544b.png" alt="Linux_home.png"></p>
+<p>选择 Write，输入 yes 回车：</p>
+<p><img data-src="https://img.imql.life/illustrations/cf5f129c57f279989af4cdcf2493bae9.png" alt="Write.png"></p>
+<p>选择 Quit 退出。</p>
+<h2 id="格式化分区">格式化分区</h2>
+<p>再次查看分区情况，发现多了三个分区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<p>将根分区格式化为 ext4 格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/nvme0n1p5</span><br></pre></td></tr></table></figure>
+<p>将交换分区格式化：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkswap /dev/nvme0n1p6</span><br></pre></td></tr></table></figure>
+<p>将家分区格式化为 ext4 格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/nvme0n1p7</span><br></pre></td></tr></table></figure>
+<h2 id="挂载分区">挂载分区</h2>
+<p>将根分区所对应硬盘卷挂载到<code>/mnt</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/nvme0n1p5 /mnt</span><br></pre></td></tr></table></figure>
+<p>激活交换分区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swapon /dev/nvme0n1p6</span><br></pre></td></tr></table></figure>
+<p>建立目录 home：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /mnt/home</span><br></pre></td></tr></table></figure>
+<p>将家分区所对应硬盘卷挂载到目录 home：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/nvme0n1p7 /mnt/home</span><br></pre></td></tr></table></figure>
+<p>查看硬盘，找到 EFI System 分区所对应硬盘卷为 nvme0n1p1。：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure>
+<p>建立目录 boot：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /mnt/boot</span><br></pre></td></tr></table></figure>
+<p>将 EFI System 分区所对应硬盘卷挂载目录 boot：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/nvme0n1p1 /mnt/boot</span><br></pre></td></tr></table></figure>
+<h2 id="配置镜像">配置镜像</h2>
+<p>使用 reflector 来获取速度最快的 6 个镜像，并将地址保存至目录 mirrorlist：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reflector -c China -a 6 --<span class="built_in">sort</span> rate --save /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
+<p>更新应用软件库（源），检查下载速度：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syy</span><br></pre></td></tr></table></figure>
+<h2 id="安装必需软件包">安装必需软件包</h2>
+<p>使用 pacstrap 脚本，安装 base/base-devel 软件包、 Linux 内核、常规硬件的固件、Vim 和 AMD CPU 驱动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap /mnt base base-devel linux linux-firmware vim amd-ucode</span><br></pre></td></tr></table></figure>
+<h2 id="配置系统">配置系统</h2>
+<h3 id="fstab">fstab</h3>
+<p>用以下命令生成文件 fstab（用<code>-U</code>设置 UUID）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<p>检查生成的文件 fstab：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<p>切换到装好的系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<h3 id="时区">时区</h3>
+<p>设置<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Time_zone">时区</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<p>同步硬件时钟：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+<h3 id="本地化">本地化</h3>
+<p>编辑文件 locale.gen：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/locale.gen</span><br></pre></td></tr></table></figure>
+<p>取消掉 en_US.UTF-8 UTF-8 和 zh_CN.UTF-8 UTF-8 前的注释（#）。</p>
+<p>生成 locale 信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
+<p>创建 <a target="_blank" rel="noopener" href="https://man.archlinux.org/man/locale.conf.5">locale.conf(5)</a> 文件，<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Locale_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E7%B3%BB%E7%BB%9F%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE">设定 LANG 变量</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/locale.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG=en_US.UTF-8</span><br></pre></td></tr></table></figure>
+<h3 id="网络">网络</h3>
+<p>创建文件 hostname，自定义设定主机名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hostname</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PC-LAPTOP</span><br></pre></td></tr></table></figure>
+<p>修改文件 hosts：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>增加行如下（中间的空白用 tab 而非空格，PC-LAPTOP 替换为你自己的主机名）。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Static table lookup for hostnames.</span><br><span class="line"># See hosts(5) for details.</span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+127.0.0.1       localhost</span></span><br><span class="line"><span class="addition">+::1             localhost</span></span><br><span class="line"><span class="addition">+127.0.1.1       PC-LAPTOP.localdomain            PC-LAPTOP</span></span><br></pre></td></tr></table></figure>
+<h3 id="Root-密码">Root 密码</h3>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure>
+<p>输入并确认密码（密码没有回显，输完直接回车即可）。</p>
+<h3 id="安装基本软件包">安装基本软件包</h3>
+<p>安装基本软件包，使用 GRUB 为启动器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S grub efibootmgr networkmanager network-manager-applet dialog wireless_tools wpa_supplicant os-prober mtools dosfstools ntfs-3g linux-headers reflector git sudo</span><br></pre></td></tr></table></figure>
+<p>编辑文件 grub：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/default/grub</span><br></pre></td></tr></table></figure>
+<p>取消掉 GRUB_DISABLE_OS_PROBER=false 前的注释（#）。</p>
+<p>再执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch</span><br></pre></td></tr></table></figure>
+<p>生成 grub.cfg：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<p><img data-src="https://img.imql.life/illustrations/84c7248e37454fc1007dd0464c9065e0.png" alt="grub-mkconfig.png"></p>
+<h2 id="重启">重启</h2>
+<p>退出新系统：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<p>取消挂载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount -R /mnt</span><br></pre></td></tr></table></figure>
+<p>重启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h2 id="登入新系统">登入新系统</h2>
+<h3 id="连接无线网-2">连接无线网</h3>
+<p>启动网络服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now NetworkManager</span><br></pre></td></tr></table></figure>
+<p>设置 WiFi：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmtui</span><br></pre></td></tr></table></figure>
+<h3 id="创建个人用户并授权">创建个人用户并授权</h3>
+<p>创建用户 ql，创建家目录，加入 wheel 组，指定 shell：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G wheel -s /bin/bash ql</span><br></pre></td></tr></table></figure>
+<p>为用户 ql 设定密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd ql</span><br></pre></td></tr></table></figure>
+<p>编辑文件 sudoers：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EDITOR=vim visudo</span><br></pre></td></tr></table></figure>
+<p>取消掉<code>%wheel ALL=(ALL:ALL) NOPASSWD: ALL</code>前的注释（#）。</p>
+<h3 id="安装显卡驱动">安装显卡驱动</h3>
+<p>我的电脑是 AMD 集显：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xf86-video-amdgpu</span><br></pre></td></tr></table></figure>
+<h3 id="安装-Display-Server">安装 Display Server</h3>
+<p>我装的是开源世界最为流行的 xorg：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xorg</span><br></pre></td></tr></table></figure>
+<p>出现选择直接回车即可。</p>
+<h3 id="安装-Display-Manager">安装 Display Manager</h3>
+<p>我装的是 KDE 的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S sddm</span><br></pre></td></tr></table></figure>
+<p>设置开机自动启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> sddm</span><br></pre></td></tr></table></figure>
+<h3 id="安装-Desktop-Environment">安装 Desktop Environment</h3>
+<p>安装 KDE：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S plasma kde-applications packagekit-qt5</span><br></pre></td></tr></table></figure>
+<p>一路默认即可。</p>
+<h3 id="重启-2">重启</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>以个人用户登录。</p>
+<h3 id="安装字体">安装字体</h3>
+<p>英文字体：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine ttf-opensans ttf-roboto ttf-ubuntu-font-family</span><br></pre></td></tr></table></figure>
+<p>中文字体：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts adobe-source-han-sans-cn-fonts adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts wqy-zenhei wqy-microhei</span><br></pre></td></tr></table></figure>
+<h3 id="系统语言">系统语言</h3>
+<p>按 Win 键，搜索运行 language，添加简体中文（在最下方），调整其优先级到最上方，Apply（应用）：</p>
+<p><img data-src="https://img.imql.life/illustrations/08c27c0c494c4894355239b5da75681f.png" alt="系统语言.png"></p>
+<p>注销重新登录以生效。</p>
+<h3 id="添加-archlinuxcn-源">添加 archlinuxcn 源</h3>
+<p>编辑文件 pacman.conf：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/pacman.conf</span><br></pre></td></tr></table></figure>
+<p>文件末尾空一行追加以下内容（使用的北外的镜像站）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line">Server = https://mirrors.bfsu.edu.cn/archlinuxcn/$arch</span><br></pre></td></tr></table></figure>
+<p>同步并安装 archlinuxcn-keyring：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Sy &amp;&amp; sudo pacman -S archlinuxcn-keyring</span><br></pre></td></tr></table></figure>
+<h3 id="安装-yay">安装 yay</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/Jguer/yay">yay</a> 是一个受欢迎的 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Arch_User_Repository">AUR</a> 助手，执行以下命令安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S yay</span><br></pre></td></tr></table></figure>
+<h3 id="安装输入法">安装输入法<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup></h3>
+<p>安装 fcitx、fcitx-im 和 fcitx-configtool：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S fcitx fcitx-im fcitx-configtool</span><br></pre></td></tr></table></figure>
+<p>安装 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/fcitx-sogoupinyin/">fcitx-sogoupinyin</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S fcitx-sogoupinyin</span><br></pre></td></tr></table></figure>
+<p>一路回车即可。</p>
+<p>创建文件 .pam_environment：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.pam_environment</span><br></pre></td></tr></table></figure>
+<p>设置 IM 环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE  DEFAULT=fcitx</span><br><span class="line">XMODIFIERS    DEFAULT=\@im=fcitx</span><br></pre></td></tr></table></figure>
+<p>注销重新登录，按 Win 键，搜索“Fcitx 配置”，回车运行，将位于第一个的“键盘 - 英语（美国）”删除，输入法即可正常使用了。</p>
+<h3 id="安装-Timeshift">安装 Timeshift</h3>
+<p>当系统出现故障的时候，可以通过备份的快照来恢复系统。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S timeshift</span><br></pre></td></tr></table></figure>
+<p>按 Win 键或者 Alt+Space，搜索运行 Timeshift。</p>
+<p>快照类型一般选择 RSYNC：</p>
+<p><img data-src="https://img.imql.life/illustrations/63c1deb6f5662f20344d876d87f6b5af.png" alt="选择快照类型.png"></p>
+<p>选择快照位置：</p>
+<p><img data-src="https://img.imql.life/illustrations/e1f73ba8c4128cd7cfc1dd59d3a9b28c.png" alt="选择快照位置.png"></p>
+<p>选择快照等级：</p>
+<p><img data-src="https://img.imql.life/illustrations/00373ee1d29601e5854597831f847992.png" alt="选择快照等级.png"></p>
+<p>默认是不备份用户目录，默认即可。</p>
+<p>设置完成：</p>
+<p><img data-src="https://img.imql.life/illustrations/14d974905b3339cceb70866cadac1ff7.png" alt="设置完成.png"></p>
+<p>启用并启动 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Cron_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">cron</a>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable <span class="literal">--now</span> cronie</span><br></pre></td></tr></table></figure>
+<h3 id="安装-fish">安装 fish</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S fish</span><br></pre></td></tr></table></figure>
+<p>设定为默认 shell：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /usr/bin/fish</span><br></pre></td></tr></table></figure>
+<p>注销重新登录以生效。</p>
+<h3 id="禁用休眠">禁用休眠<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup></h3>
+<p>编辑文件 sleep.conf：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/systemd/sleep.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Sleep]</span><br><span class="line">#AllowSuspend=yes</span><br><span class="line"><span class="deletion">-#AllowHibernation=yes</span></span><br><span class="line"><span class="deletion">-#AllowSuspendThenHibernate=yes</span></span><br><span class="line"><span class="deletion">-#AllowHybridSleep=yes</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[Sleep]</span><br><span class="line">#AllowSuspend=yes</span><br><span class="line"><span class="addition">+AllowHibernation=no</span></span><br><span class="line"><span class="addition">+AllowSuspendThenHibernate=no</span></span><br><span class="line"><span class="addition">+AllowHybridSleep=no</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装火狐浏览器">安装火狐浏览器</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S firefox</span><br></pre></td></tr></table></figure>
+<p>安装中文语言包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S firefox-i18n-zh-cn</span><br></pre></td></tr></table></figure>
+<h2 id="美化启动项选择界面">美化启动项选择界面</h2>
+<p>每次重启电脑，如下图，默认的启动项选择界面看起来比较简朴，我们可以换一个主题。</p>
+<p><img data-src="https://img.imql.life/illustrations/b6c9b499166502f5ab2733698115dd6d.png" alt="默认的启动项选择界面.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/AdisonCavani/distro-grub-themes">前往主题仓库</a>，下载 Arch 主题文件：</p>
+<p><img data-src="https://img.imql.life/illustrations/9ed9aa73446cc14d3e785c38a4f71718.png" alt="arch.png"></p>
+<p>安装 Grub Customizer：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman <span class="literal">-S</span> grub<span class="literal">-customizer</span></span><br></pre></td></tr></table></figure>
+<p>按 Win 键或者 Alt+Space，搜索运行 Grub Customizer。</p>
+<p>点击外观设置，设定分辨率为 1920x1080：</p>
+<p><img data-src="https://img.imql.life/illustrations/f92cad978180676abcad444479c50ed3.png" alt="自定义分辨率.png"></p>
+<p>点击主题后面的加号，选择以上下载好的主题文件，点击左上角文件，保存：</p>
+<p><img data-src="https://img.imql.life/illustrations/3010e38e90ec4f52cd43ee26ea34a994.png" alt="保存.png"></p>
+<p>重启，至此，Windows 11 和 Arch Linux 双系统安装园满完成。</p>
+<h2 id="参考-4">参考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/138951848">2021 Archlinux 双系统安装教程（超详细）</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/433920079">Archlinux 安装教程超详细（2021.11.15）</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/General_recommendations_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">General recommendations</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Dual_boot_with_Windows">Dual boot with Windows</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/System_time#UTC_in_Microsoft_Windows">UTC in Microsoft Windows</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Fcitx</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Power_management#Disabling_suspend">Disabling suspend</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Windows/" rel="tag"><i class="fa fa-tag"></i> Windows</a>
+              <a href="/tags/Arch-Linux/" rel="tag"><i class="fa fa-tag"></i> Arch Linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/20/The_Installation_Guide_of_Windows_10_and_Windows_11/" rel="prev" title="Windows 10&11 安装指南">
+                  <i class="fa fa-chevron-left"></i> Windows 10&11 安装指南
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/28/Fund_Laws_and_Regulations_Professional_Ethics_and_Business_Norms/" rel="next" title="基金法律法规、职业道德与业务规范">
+                  基金法律法规、职业道德与业务规范 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://img.imql.life/blog.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://img.imql.life/blog.svg">
+  <link rel="mask-icon" href="https://img.imql.life/blog.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.imql.life","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="本文记录和讲解我的博客的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的博客的诞生（三）">
+<meta property="og:url" content="http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_3/index.html">
+<meta property="og:site_name" content="ql&#39;s blog">
+<meta property="og:description" content="本文记录和讲解我的博客的使用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.imql.life/illustrations/37eb93cc10af3f74217e67b51eafcee1.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/a79d5008c2749bdb6d2bcb09f1c62866.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/64e04735a9e72be9db6f6ce588fc4186.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/5991da600c0ae90223cbffd4b33fe02c.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/00906c96e536625f4fde1d00fe8aa103.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/8ea44d3ecf13adf6c7eada7d07fcdc22.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/2d196e2b65f28df4eec433fbd6a76350.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/78b2548c699ffae5eecab28caf62b250.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/b82d697b763ed58708b2e3eebf821663.gif">
+<meta property="og:image" content="https://img.imql.life/illustrations/ccefe1737c9aec06e15c0ca3bd6c8e9e.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/a719b00caa586a017f102c13f01b19ea.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/0103766d08ff60fa0515816fc27575a9.png">
+<meta property="og:image" content="https://img.imql.life/illustrations/dfd0be81974b5a5c57653b9ba3abb595.png">
+<meta property="article:published_time" content="2020-01-24T14:54:00.000Z">
+<meta property="article:modified_time" content="2023-10-03T04:09:20.000Z">
+<meta property="article:author" content="ql">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="MarkText">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.imql.life/illustrations/37eb93cc10af3f74217e67b51eafcee1.gif">
+
+
+<link rel="canonical" href="http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_3/","path":"2020/01/24/My_HexoBlog_with_NexT_3/","title":"我的博客的诞生（三）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>我的博客的诞生（三） | ql's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ql's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">It's a beautiful day!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown"><span class="nav-number">1.</span> <span class="nav-text">Markdown</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Typora"><span class="nav-number">2.</span> <span class="nav-text">Typora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MarkText"><span class="nav-number">3.</span> <span class="nav-text">MarkText</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%A6%E5%86%99%E5%8D%9A%E6%96%87"><span class="nav-number">4.</span> <span class="nav-text">书写博文[1]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E9%A2%98"><span class="nav-number">4.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%B3%A8"><span class="nav-number">4.2.</span> <span class="nav-text">脚注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">4.3.</span> <span class="nav-text">有序列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="nav-number">4.4.</span> <span class="nav-text">无序列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%88%97%E8%A1%A8"><span class="nav-number">4.5.</span> <span class="nav-text">任务列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%AE%B5"><span class="nav-number">4.6.</span> <span class="nav-text">代码段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">4.7.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">4.8.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87"><span class="nav-number">4.9.</span> <span class="nav-text">插入图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%9A%E5%AE%A2%E6%9E%84%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="nav-number">5.</span> <span class="nav-text">博客构建仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Git-%E7%AE%A1%E7%90%86%E5%8D%9A%E5%AE%A2%E6%9E%84%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%B9%B6%E6%89%98%E7%AE%A1%E5%88%B0-GitHub"><span class="nav-number">5.1.</span> <span class="nav-text">使用 Git 管理博客构建目录并托管到 GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E4%B8%BA%E5%AD%90%E9%A1%B9%E7%9B%AE"><span class="nav-number">5.2.</span> <span class="nav-text">将主题添加为子项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%AB%AF%E4%B9%A6%E5%86%99"><span class="nav-number">5.3.</span> <span class="nav-text">多端书写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90"><span class="nav-number">6.</span> <span class="nav-text">持续集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%91%E7%AB%AF%E5%BC%80%E5%8F%91"><span class="nav-number">7.</span> <span class="nav-text">云端开发</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ql"
+      src="https://img.imql.life/avatar.jpg">
+  <p class="site-author-name" itemprop="name">ql</p>
+  <div class="site-description" itemprop="description">一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://blog.imql.life/" title="blog → https:&#x2F;&#x2F;blog.imql.life&#x2F;"><i class="fas fa-blog fa-fw"></i>blog</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.imql.life/" title="www → https:&#x2F;&#x2F;www.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-house-user fa-fw"></i>www</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://nav.imql.life/" title="nav → https:&#x2F;&#x2F;nav.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-location-arrow fa-fw"></i>nav</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.imql.life/" title="space → https:&#x2F;&#x2F;space.imql.life&#x2F;" rel="noopener" target="_blank"><i class="fas fa-cube fa-fw"></i>space</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/ql-isaac" title="Github → https:&#x2F;&#x2F;github.com&#x2F;ql-isaac" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:834471527@qq.com" title="E-Mail → mailto:834471527@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.imql.life/2020/01/24/My_HexoBlog_with_NexT_3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://img.imql.life/avatar.jpg">
+      <meta itemprop="name" content="ql">
+      <meta itemprop="description" content="一尘不染不是不再有尘埃，而是尘埃让它飞扬，我自做我的阳光。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ql's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的博客的诞生（三）<a href="https://github.dev/ql-isaac/#_posts/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%9A%84%E8%AF%9E%E7%94%9F%EF%BC%88%E4%B8%89%EF%BC%89.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-24 22:54:00" itemprop="dateCreated datePublished" datetime="2020-01-24T22:54:00+08:00">2020-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-03 12:09:20" itemprop="dateModified" datetime="2023-10-03T12:09:20+08:00">2023-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">我的博客</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文记录和讲解我的博客的使用。</p>
+<span id="more"></span>
+<h2 id="Markdown">Markdown</h2>
+<p>Markdown 是一种轻量级的专为写作而生的标记语言，其语法十分简单，常用的标记符号不超过十个。</p>
+<h2 id="Typora">Typora</h2>
+<p>Typora 是一个 Markdown 文件编辑器，最大的特色是命令式的实时预览，一旦熟悉了 Markdown 语法，写作体验极好。其全平台支持，可到<a target="_blank" rel="noopener" href="https://typora.io/">官网</a>下载，但目前这款软件已开始收费。</p>
+<h2 id="MarkText">MarkText</h2>
+<p>MarkText，绝对是 Typora 的最佳替代品，它开源免费，本人强烈推荐，请前往它的 GitHub 发布页面下载安装使用。</p>
+<h2 id="书写博文">书写博文<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h2>
+<p>通过执行<code>hexo new post &lt;自定义 md 文件名&gt;</code>，相应 Markdown 文件将在 _posts 下生成，我们可以使用 MarkText 打开该 Markdown 文件书写博文。</p>
+<div class="note info"><p>以下动图为一开始使用 Typora 录制，只是便于对博文书写语法进行讲解，其同样适用于 MarkText。</p>
+</div>
+<h3 id="标题">标题</h3>
+<p>使用<code>#</code>可表示 1-6 级标题。一级标题对应一个 #，二级标题对应两个 # ，以此类推，如下图（注意 # 后面有一个空格）：</p>
+<p><img data-src="https://img.imql.life/illustrations/37eb93cc10af3f74217e67b51eafcee1.gif" alt="标题" title="标题"></p>
+<h3 id="脚注">脚注</h3>
+<p>不多说了，看图吧：</p>
+<p><img data-src="https://img.imql.life/illustrations/a79d5008c2749bdb6d2bcb09f1c62866.gif" alt="脚注" title="脚注"></p>
+<h3 id="有序列表">有序列表</h3>
+<p>使用<code>&lt;序号&gt;.</code>（<code>.</code>后面有一个空格）可表示有序列表，若<code>&lt;序号&gt;.</code>之后接了实际内容，则回车自动生成下一项，如没有实际内容，回车回到正文：</p>
+<p><img data-src="https://img.imql.life/illustrations/64e04735a9e72be9db6f6ce588fc4186.gif" alt="有序列表" title="有序列表"></p>
+<h3 id="无序列表">无序列表</h3>
+<p>使用<code>-</code>（<code>-</code>后面有空格）可表示无序列表，若<code>-</code>之后接了实际内容，则回车自动生成下一项，如没有实际内容，回车回到正文：</p>
+<p><img data-src="https://img.imql.life/illustrations/5991da600c0ae90223cbffd4b33fe02c.gif" alt="无序列表" title="无序列表"></p>
+<h3 id="任务列表">任务列表</h3>
+<p>使用<code>- [ ]</code>（<code>[ ]</code>后面有空格）可表示任务列表，若<code>- [ ]</code>之后接了实际内容，则回车自动生成下一项，如没有实际内容，回车回到正文：</p>
+<p><img data-src="https://img.imql.life/illustrations/00906c96e536625f4fde1d00fe8aa103.gif" alt="任务列表" title="任务列表"></p>
+<div class="note info"><p>以上三种列表之间可以相互嵌套，只需在敲子列表前敲四个空格即可。</p>
+</div>
+<h3 id="代码段">代码段</h3>
+<p>用一对单个反引号把代码包起来即可：</p>
+<p><img data-src="https://img.imql.life/illustrations/8ea44d3ecf13adf6c7eada7d07fcdc22.gif" alt="代码段" title="代码段"></p>
+<h3 id="代码块">代码块</h3>
+<p>先敲三个反引号再回车，就能生成一个空代码块，粘贴进代码就可以了，右下方可以指定语言，会有相应的高亮显示：</p>
+<p><img data-src="https://img.imql.life/illustrations/2d196e2b65f28df4eec433fbd6a76350.gif" alt="代码块" title="代码块"></p>
+<div class="note info"><p>其实以上表示代码块的语法是 Typora 对 Markdown 语法的简化，可使用<code>Ctrl</code>+<code>/</code>切换到源代码模式，可看到是一对三个反引号包起来即表示代码块。</p>
+</div>
+<h3 id="链接">链接</h3>
+<p>先用一对中括号包裹链接文本，再用一对小括号包裹地址：</p>
+<p><img data-src="https://img.imql.life/illustrations/78b2548c699ffae5eecab28caf62b250.gif" alt="链接" title="链接"></p>
+<h3 id="插入图片">插入图片</h3>
+<p>先敲一个<code>!</code>，再用一对中括号包裹图片描述，最后敲一对小括号就可以选择图片插入：</p>
+<p><img data-src="https://img.imql.life/illustrations/b82d697b763ed58708b2e3eebf821663.gif" alt="插入图表" title="插入图表"></p>
+<h2 id="博客构建仓库">博客构建仓库</h2>
+<p>现在，虽然博文没写几篇，我已经遇到了这样两个问题：换了一台电脑怎么办？博客构建目录怎么备份？</p>
+<p>直接使用 U 盘显然是非常原始愚蠢的办法，这时，我想到了最流行的分布式版本控制系统 Git 和全球最大的代码托管平台 GitHub。</p>
+<h3 id="使用-Git-管理博客构建目录并托管到-GitHub">使用 Git 管理博客构建目录并托管到 GitHub</h3>
+<p>进入 <a target="_blank" rel="noopener" href="http://github.com/">Github 首页</a>，右上角的加号处创建仓库，仓库名自定义，如 blog。</p>
+<p>进入&lt;博客构建目录&gt;，初始化一个 Git 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>将全部文件添加进暂存区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<p>提交到本地版本库（第一次）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;:tada:&quot;</span></span><br></pre></td></tr></table></figure>
+<p>添加远程版本库（仓库）地址:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:&lt;自己的GitHub用户名&gt;/blog.git</span><br></pre></td></tr></table></figure>
+<p>推送到远程版本库（仓库）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -M main</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+<p>这时你可以看到 GitHub 上刚建的仓库中出现了博客构建目录下的一些文件，你仔细和本地比对后可能会有以下问题。</p>
+<div class="note info"><p>少了一些文件夹，比如 node_modules、public 和 .deploy_git，这是怎么回事？</p>
+</div>
+<div class="note success"><p>其实这是正常的，这些文件在 .gitignore 中被指定，被 Git 忽略了，因为这些文件都是衍生文件，根本不重要，比如 node_modules 文件夹可以通过 npm install 生成。</p>
+</div>
+<div class="note info"><p>少了主题文件夹！难道这个也被 Git 忽略了？.gitignore 没指定啊。</p>
+</div>
+<div class="note success"><p>是的，主题文件夹也被忽略了，但是是由于我们当初是通过<code>git clone</code>下载的主题，其本身也是一个 Git 项目，拥有自己的仓库，这种情况推荐的做法是将该 Git 项目添加为子项目。</p>
+</div>
+<h3 id="将主题添加为子项目">将主题添加为子项目</h3>
+<p>访问<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next/">主题仓库</a>，点击右上方的 Fork，创建一个自己的分支。</p>
+<p>删除主题文件夹，执行以下命令将主题设置为子项目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add -b master git@github.com:next-theme/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure>
+<p>提交到本地版本库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;将主题添加为子项目&quot;</span></span><br></pre></td></tr></table></figure>
+<p>推送到远程版本库（仓库）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>这时你可以看到 GitHub 上的仓库中主题文件夹出来了，点开后跳到自己的分支。</p>
+<p>以上不仅实现了博客构建目录的备份，更将博客构建目录变成了一个 Git 项目。那么如何多端书写博文呢？</p>
+<h3 id="多端书写">多端书写</h3>
+<p>我们换了一台新电脑后，需要五步进行多端书写：</p>
+<ol>
+<li>安装 Node.js，安装 hexo-cli；</li>
+<li>安装和配置 Git，执行以下命令克隆博客构建仓库；</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive git@github.com:&lt;自己的GitHub用户名&gt;/blog.git</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>安装依赖：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<div class="note success"><p>这时进行本地预览(hexo s)，你会发现你的博客原封不动的回来了。</p>
+</div>
+<ol start="4">
+<li>书写完博文后更新博客构建仓库：</li>
+</ol>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;:memo:&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>更新博客：<code>hexo g -d</code>。</li>
+</ol>
+<div class="note primary"><p>更新博客后，所有文章的更新时间都变成了最近的时间如果我们不自己在每篇文章的 front-matter（即文章的 MD 文件开头那部分）中设定 updated 的值，如果我们不能接受这一情况，则需要自己设定一下 updated 的值，格式同<code>&quot;2023-08-12 11:15:15&quot;</code>。</p>
+</div>
+<div class="note primary"><p>hexo-cli，只是 hexo 的命令行接口，它的作用是方便我们执行 hexo 的相关命令，我们只是在第一次初始化一个 hexo 博客时需要真正使用到它（<code>hexo init</code>)，我们常用的<code>hexo clean</code>、<code>hexo g -d</code>其实都是来自于 hexo 这个 npm 包，而其是作为我们构建博客的一个依赖被安装的，所以，在一台新电脑上，我们完全不必再次安装 hexo-cli，而是直接在博客构建目录下调用 hexo，观察到 package.json 中定义了以下几个 NPM 命令，其实 hexo 官方已经给我们设定好了，即<code>npm run build</code>就是调用<code>hexo generate</code>，<code>npm run deploy</code>就是调用<code>hexo deploy</code>，其他同理，那么，在以上多端书写五个步骤中，就可以省略掉安装 hexo-cli 并将最后一步命令替换为<code>npm run build &amp;&amp; npm run deploy</code>。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;clean&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo server&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="持续集成">持续集成</h2>
+<p>虽然实现了多端书写，但是操作起来也挺麻烦的。换电脑要重新配置环境，书写完博文除了要部署博客，还要更新博客构建仓库，这时 GitHub Actions 就派上用场了。</p>
+<div class="note info"><p>GitHub Actions 可以简单理解为可以让你在云端对自己的仓库进行一系列的命令，对于免费用户，每月有 2000 分钟的使用时间。</p>
+</div>
+<p>前往博客构建仓库，创建一个工作流文件（一个 yml 文件）：</p>
+<p><img data-src="https://img.imql.life/illustrations/ccefe1737c9aec06e15c0ca3bd6c8e9e.png" alt="image.png"></p>
+<p>重命名此 yml 文件为 hexo-build.yml，复制粘贴以下内容：</p>
+<div class="tabs" id="hexo-build"><ul class="nav-tabs"><li class="tab active"><a href="#hexo-build-1">注释版</a></li><li class="tab"><a href="#hexo-build-2">清洁版</a></li></ul><div class="tab-content"><div class="tab-pane active" id="hexo-build-1"><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">hexo-build</span></span><br><span class="line"><span class="comment"># 仓库main分支有推送时执行jobs下定义的任务</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"><span class="comment"># 设置时区为上海</span></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">TZ:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="comment"># 定义名为blog-build的任务</span></span><br><span class="line">  <span class="attr">blog-build:</span></span><br><span class="line">    <span class="comment"># 定义运行的操作系统</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="comment"># 定义步骤</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="comment"># 签出仓库的默认分支，此处即为main，同时迁出子项目，此处即为主题仓库</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="literal">true</span></span><br><span class="line">      <span class="comment"># 安装v12.14.0的Node.js，同时进行全局缓存</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Node.js</span> <span class="string">v12.14.0</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;12.14.0&quot;</span></span><br><span class="line">          <span class="attr">cache:</span> <span class="string">&quot;npm&quot;</span></span><br><span class="line">      <span class="comment"># 缓存文件夹node_modules并生成唯一码</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">cache-dependencies</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span></span><br><span class="line">      <span class="comment"># 如果唯一码比对不成功，重新安装依赖，成功则沿用缓存</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">if:</span> <span class="string">steps.cache-dependencies.outputs.cache-hit</span> <span class="type">!=</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">private</span> <span class="string">rsa</span> <span class="string">key</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">DEPLOY_KEY:</span> <span class="string">$&#123;&#123;secrets.DEPLOY_KEY&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          mkdir -p ~/.ssh/</span></span><br><span class="line"><span class="string">          echo &quot;$DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa </span></span><br><span class="line"><span class="string">          chmod 600 ~/.ssh/id_rsa</span></span><br><span class="line"><span class="string">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="string">          ssh-keyscan gitee.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git config --global user.name &quot;$&#123;&#123;secrets.GIT_NAME&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">          git config --global user.email &quot;$&#123;&#123;secrets.GIT_EMAIL&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">          npm run build &amp;&amp; npm run deploy</span></span><br></pre></td></tr></table></figure></div><div class="tab-pane" id="hexo-build-2"><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">hexo-build</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line">  <span class="attr">TZ:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">blog-build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">submodules:</span> <span class="literal">true</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Node.js</span> <span class="string">v12.14.0</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;12.14.0&quot;</span></span><br><span class="line">          <span class="attr">cache:</span> <span class="string">&quot;npm&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Cache</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/cache@v3</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">cache-dependencies</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">          <span class="attr">key:</span> <span class="string">$&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">if:</span> <span class="string">steps.cache-dependencies.outputs.cache-hit</span> <span class="type">!=</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">ci</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">private</span> <span class="string">rsa</span> <span class="string">key</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">DEPLOY_KEY:</span> <span class="string">$&#123;&#123;secrets.DEPLOY_KEY&#125;&#125;</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          mkdir -p ~/.ssh/</span></span><br><span class="line"><span class="string">          echo &quot;$DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa </span></span><br><span class="line"><span class="string">          chmod 600 ~/.ssh/id_rsa</span></span><br><span class="line"><span class="string">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="string">          ssh-keyscan gitee.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          git config --global user.name &quot;$&#123;&#123;secrets.GIT_NAME&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">          git config --global user.email &quot;$&#123;&#123;secrets.GIT_EMAIL&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">          npm run build &amp;&amp; npm run deploy</span></span><br></pre></td></tr></table></figure></div></div></div>
+<p>先别着急提交以上内容，在这个工作流文件中，存在 <code>$&#123;&#123;&#125;&#125;</code> 这种格式的东西，这是我们工作流需要使用到的变量，需要提前指定一下。</p>
+<p>前往博客构建仓库（再开一个浏览器标签页），添加变量（会被加密）：</p>
+<p><img data-src="https://img.imql.life/illustrations/a719b00caa586a017f102c13f01b19ea.png" alt="image.png"></p>
+<ul>
+<li>指定 DEPLOY_KEY 的值，此值为我们电脑用户文件夹下 .ssh 下 id_rsa 的内容，即私钥，该私钥在<a target="_blank" rel="noopener" href="https://www.imql.life/2020/01/24/What_is_Git/#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE_Git">安装和配置 Git</a> 时生成。</li>
+<li>指定 GIT_NAME 的值，即自己的 GitHub 用户名。</li>
+<li>指定 GIT_EMAIL 的值，即自己的 GitHub 邮箱。</li>
+</ul>
+<p>指定好后就可以提交 hexo-build.yml，之后会看到工作流进行中，最终完成。</p>
+<p>这样以后对于任何一台新电脑，只需要三步即可多端书写：</p>
+<ol>
+<li>安装和配置 Git，执行以下命令克隆博客构建仓库；</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recursive git@github.com:&lt;自己的GitHub用户名&gt;/blog.git</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>安装依赖：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>书写完博文后更新博客构建仓库：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;:memo:&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="云端开发">云端开发</h2>
+<p>现在，终于不用担心换电脑的问题了，终于可以好好写博文了，但是现实情况是博文还是没写几篇，反而深陷各种主题尝试、调试和魔改无法自拔，往往是这里还想改一下，但是没电脑在身边，只有平板或者手机。GitHub 真是懂我们的心思，它带着 Codespaces 来了。</p>
+<p>在博客构建仓库创建一个 Codespace：</p>
+<p><img data-src="https://img.imql.life/illustrations/0103766d08ff60fa0515816fc27575a9.png" alt="创建一个 Codespace" title="创建一个 Codespace"></p>
+<p>默认使用的是一个多用镜像，拥有 Python、Node.js、Docker 等多个开发环境，我们可以自定义一个开发环境：</p>
+<ol>
+<li>访问 Visual Studio Code 命令面板（Shift+Command+P / Ctrl+Shift+P），输入“add dev”。单击“Codespaces: Add Dev Container Configuration Files…”;</li>
+<li>单击“Create a new configuration…”;</li>
+<li>单击“Show All Definitions…”;</li>
+<li>输入“node”，单击“Basic Node.js”；</li>
+</ol>
+<p><img data-src="https://img.imql.life/illustrations/dfd0be81974b5a5c57653b9ba3abb595.png" alt="image.png"></p>
+<ol start="5">
+<li>单击“18-bullseye”；</li>
+<li>确定。</li>
+</ol>
+<p>修改生成的 Dockerfile，设定时区、安装 Vim：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM library/node:18-bullseye</span><br><span class="line"><span class="addition">+</span></span><br><span class="line"><span class="addition">+ENV TZ=&quot;Asia/Shanghai&quot;</span></span><br><span class="line"><span class="addition">+</span></span><br><span class="line">ARG DEBIAN_FRONTEND=noninteractive</span><br><span class="line">RUN apt update \</span><br><span class="line"><span class="deletion">-    &amp;&amp; apt install -y --no-install-recommends sudo \</span></span><br><span class="line"><span class="addition">+    &amp;&amp; apt install -y --no-install-recommends sudo vim \</span></span><br><span class="line">    &amp;&amp; apt autoremove -y \</span><br><span class="line">    &amp;&amp; rm -rf /var/lib/apt/lists/* \</span><br><span class="line">    &amp;&amp; echo &quot;node ALL=(ALL) NOPASSWD: ALL&quot; &gt;/etc/sudoers.d/node \</span><br><span class="line">    &amp;&amp; chmod 0440 /etc/sudoers.d/node</span><br></pre></td></tr></table></figure>
+<p>修改生成的 devcontainer.json，更改开发环境的 name 为 Hexo，定义生命周期脚本<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="deletion">-  &quot;name&quot;: &quot;Basic Node.js&quot;,</span></span><br><span class="line"><span class="addition">+  &quot;name&quot;: &quot;Hexo&quot;,</span></span><br><span class="line">  &quot;build&quot;: &#123; &quot;dockerfile&quot;: &quot;Dockerfile&quot; &#125;,</span><br><span class="line"><span class="deletion">-  &quot;remoteUser&quot;: &quot;node&quot;</span></span><br><span class="line"><span class="addition">+  &quot;remoteUser&quot;: &quot;node&quot;,</span></span><br><span class="line"><span class="addition">+  &quot;postCreateCommand&quot;: &quot;mkdir -p ~/.ssh/ &amp;&amp; echo \&quot;$DEPLOY_KEY\&quot; &gt; ~/.ssh/id_rsa &amp;&amp; chmod 600 ~/.ssh/id_rsa &amp;&amp; ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts &amp;&amp; sudo npm install -g hexo-cli &amp;&amp; cd $&#123;containerWorkspaceFolder&#125; &amp;&amp; rm -rf node_modules &amp;&amp; npm ci&quot;,</span></span><br><span class="line"><span class="addition">+  &quot;postStartCommand&quot;: &quot;hexo clean &amp;&amp; hexo generate&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问 Visual Studio Code 命令面板（Shift+Command+P / Ctrl+Shift+P），输入“rebuild”。单击“Codespaces: Rebuild Container”，rebuild。</p>
+<p>这样，一个适合 Hexo 的开发环境就配置好了，可自行阅读<a target="_blank" rel="noopener" href="https://docs.github.com/en/codespaces">官方文档</a>进行自定义。</p>
+<p>最后将更改提交并推送：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;:construction_worker: 使用Codespaces&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://www.runoob.com/markdown/md-tutorial.html">菜鸟教程</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p><a target="_blank" rel="noopener" href="https://containers.dev/implementors/json_reference/#lifecycle-scripts">生命周期脚本</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+              <a href="/tags/MarkText/" rel="tag"><i class="fa fa-tag"></i> MarkText</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/24/My_HexoBlog_with_NexT_2/" rel="prev" title="我的博客的诞生（二）">
+                  <i class="fa fa-chevron-left"></i> 我的博客的诞生（二）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/27/Python-Learning(1)/" rel="next" title="Python 从入门到实践（一）">
+                  Python 从入门到实践（一） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">京ICP备20031573号-2 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ql</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">124k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:53</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
